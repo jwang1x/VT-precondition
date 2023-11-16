@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content>
+	<overwrite>True</overwrite>
+	<auto>
+		<xmlcli>
+			<linux>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/7.2_xmlcli_windows_linux_esxi_Python.zip,xmlcli_windows_linux_esxi_Python.zip</linux>
+			<windows>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/7.2_xmlcli_windows_linux_esxi_Python.zip,xmlcli_windows_linux_esxi_Python.zip</windows>
+			<esxi>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/7.2_xmlcli_windows_linux_esxi_Python.zip,xmlcli_windows_linux_esxi_Python.zip</esxi>
+		</xmlcli>
+		<iproute>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Linux/iproute2-next-scalable-bkc-6.2.zip,iproute2-next-scalable-bkc-6.2.zip</iproute>
+		<python>
+			<python_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Linux/Python-3.10.10.tgz,Python-3.10.10.tgz</python_cent>
+			<python_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/env/sut/windows/python-3.8.10-amd64.exe,python38.exe</python_wind>
+			<python_pip_module_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Windows/pip_paramiko_w.zip,pip_paramiko_w.zip</python_pip_module_wind>
+		</python>
+		<auto-poc>
+			<windows>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/auto-poc.zip,auto-poc.zip</windows>
+			<linux>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/auto-poc.zip,auto-poc.zip</linux>
+		</auto-poc>
+		<nuc>
+			<environment_variable_bat>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/env_setup.bat,env_setup.bat</environment_variable_bat>
+			<vmware_powercli>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Esxi/VMware-PowerCLI.zip,VMware-PowerCLI.zip</vmware_powercli>
+			<python_pip_modules>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Windows/pip_modules.zip,pip_modules.zip</python_pip_modules>
+		</nuc>
+	</auto>
+	<stress_tools>
+		<!--note>ioworkloadtools</note-->
+		<kvm_unit_tests_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Linux/kvm-unit-tests-master.tar,kvm-unit-tests-master.tar</kvm_unit_tests_cent>
+		<cmdline_config_80_workload>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Linux/cmdline_config_80_workload.txt,cmdline_config_80_workload.txt</cmdline_config_80_workload>
+		
+		<mlc_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Esxi/mlc_v3.9a.tgz,mlc_v3.9a.tgz</mlc_wind>
+		<mlc_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Esxi/mlc_v3.9a.tgz,mlc_v3.9a.tgz</mlc_cent>
+		
+		<iperf3_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Linux/iperf3_win.zip,iperf3_win.zip</iperf3_wind>
+		
+		<fio_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Linux/fio_win.zip,fio_win.zip</fio_wind>
+		
+		<ethr_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Esxi/ethr_windows.zip,ethr_windows.zip</ethr_wind>
+		<ntttcp_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Esxi/ntttcp_windows.zip,ntttcp_windows.zip</ntttcp_wind>
+		<iometer_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Esxi/iometer_win.zip,iometer_win.zip</iometer_wind>
+		
+		<ipmitool_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/IPMIToolWin.zip</ipmitool_wind>
+				
+		<vtdchain>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/vtdchain_tool.zip,vtdchain_tool.zip</vtdchain>
+		
+		<!--note>sgx tools</note-->
+		<sgx_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/SGX.zip,SGX.zip</sgx_wind>
+		<sgx_enablesgx_vm_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/EnableSGX-on-VM.zip,EnableSGX-on-VM.zip</sgx_enablesgx_vm_wind>
+				
+		<sgx_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/sgx-2.20.100.4-rhel9.zip,sgx.zip</sgx_cent>
+		<sgx_functionvalidation_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/SGXFunctionalValidation_v0.8.10.0.tar.gz,SGXFunctionalValidation.tar.gz</sgx_functionvalidation_cent>
+		
+		<!--note></note-->
+		<qat_cent>https://ubit-artifactory-ba.intel.com/artifactory/one-windows-local/Submissions/QAT/qat21.l.1.2.1-00010/qat_qat21.l.1.2.1-00010.zip,qat.zip</qat_cent>
+		<qat_esxi>https://ubit-artifactory-ba.intel.com/artifactory/one-windows-local/Submissions/QAT/2.6.0.91-GNR/2.6.0.91-GNR.zip,qat-gnr.zip</qat_esxi>
+
+		<dlb_cent>https://ubit-artifactory-or.intel.com/artifactory/one-windows-local/Submissions/dlb/release_ver_8.4.1/release_ver_8.4.1.zip,dlb_centos.zip</dlb_cent>
+		<dlb_esxi>https://ubit-artifactory-ba.intel.com/artifactory/one-windows-local/Submissions/dlb_esxi/1.5.0.82-gnr-U1-Alpha/dlb-gnr-1.5.0.82-U1-alpha.zip,dlb-gnr.zip</dlb_esxi>
+
+		<dsa_iaa_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/idxd-config-dsa2.zip,idxd-config-dsa2.zip</dsa_iaa_cent>
+		<accel_random_config_and_test>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/accel-random-config-and-test-dsa2_230915.zip,accel-test.zip</accel_random_config_and_test>
+		<dsa_iaa_esxi>https://ubit-artifactory-ba.intel.com/artifactory/one-windows-local/Submissions/iads_esxi/0.14.0.80-gnr_v3/iads-gnr-0.14.0.80_v3.zip,iads-gnr.zip</dsa_iaa_esxi>
+
+		<!--note></note-->
+		<vsphere>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Esxi/VCSA-all-8.0.0.zip,VCSA-all.zip</vsphere>
+		<vsphere_ks_json>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Esxi/embedded_vCSA_on_ESXi.json,embedded_vCSA_on_ESXi.json</vsphere_ks_json>
+		
+		<balloon_bash_vm_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Esxi/balloon_test.sh,balloon_test.sh</balloon_bash_vm_cent>
+		<vmd_driver_esxi>https://ubit-artifactory-or.intel.com/artifactory/one-windows-local/Submissions/VMD_ESXi/4.0.0.1002-bcp/vmd_4_0_0_1002_esxi_kit.zip,intel_nvme_vmd.zip</vmd_driver_esxi>
+	</stress_tools>
+	
+	<vm>
+		<refresh_vm>True</refresh_vm>
+		<linux>
+			<centos_arti_iso>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/gnr-po-bkc-centos-stream-8-installer-minimal-1.4.2-11_kvm_unattend.iso,gnr-po-bkc-centos-stream-1.4.2-11_kvm_unattend.iso</centos_arti_iso>
+			<windows_arti_iso>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/20348.768_14June2022_SERVER_EVAL_x64FRE_en-us_kvm_hyperv_unattend.iso,20348.768_14June2022_SERVER_EVAL_x64FRE_en-us_kvm_hyperv_unattend.iso</windows_arti_iso>
+			<centos_arti_img>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/gnr-bkc-centos-stream-9-coreserver.img.xz,gnr-bkc-centos-stream-9-coreserver.img.xz</centos_arti_img>
+			<spr_centos_arti_img>https://ubit-artifactory-or.intel.com/artifactory/linuxbkc-or-local/linux-stack-bkc-spr/2022ww42/internal-images/spr-bkc-pc-centos-stream-8-coreserver-12.7-15.img.xz,spr-bkc-pc-centos-stream-8-coreserver-12.7-15.img.xz</spr_centos_arti_img>
+			<windows_arti_img>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/windows0.img.xz,windows0.img.xz</windows_arti_img>
+			<rhel_arti_template>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/rhel0.zip,rhel0.zip</rhel_arti_template>
+			<centos_arti_template>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/centos0.zip,centos0.zip</centos_arti_template>
+			<windows_arti_template>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/windows0.zip,windows0.zip</windows_arti_template>
+		</linux>
+		<windows>
+			<centos_arti_iso>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/windows/6.2.0-gnr.bkc.6.2.10.6.34.x86_64_gnr_po_hyperv_unattend.iso,windows-unattend-centos.iso</centos_arti_iso>
+			<windows_arti_iso>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/20348.768_14June2022_SERVER_EVAL_x64FRE_en-us_kvm_hyperv_unattend.iso,windows-unattend-windows.iso</windows_arti_iso>
+			<centos_arti_vhdx>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/windows/centos_template_6.2.0-gnr.bkc.6.2.6.10.30.x86_64.zip,centos_template.zip</centos_arti_vhdx>
+			<windows_arti_vhdx>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/windows/windows_template_20348.1547_14Feb2023.zip,windows_template.zip</windows_arti_vhdx>
+			<windows_arti_gen2_vhdx>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/windows/win_gen_2.zip,windows_gen2_template.zip</windows_arti_gen2_vhdx>
+			<regirster_vm>
+				<windows1>C:\BKCPkg\domains\virtualization\imgs\windows_template\windows_template.vhdx</windows1>
+				<windows2>C:\BKCPkg\domains\virtualization\imgs\windows_template\windows_template.vhdx</windows2>
+				<windows3>C:\BKCPkg\domains\virtualization\imgs\windows_template\windows_template.vhdx</windows3>
+				<windows4>C:\BKCPkg\domains\virtualization\imgs\windows_template\windows_template.vhdx</windows4>
+				<windows_sgx>C:\BKCPkg\domains\virtualization\imgs\windows_gen2_template\win_gen_2.vhdx</windows_sgx>
+				<rhel1>C:\BKCPkg\domains\virtualization\imgs\centos_template\centos_template.vhdx</rhel1>
+			</regirster_vm>
+		</windows>
+		<esxi>
+			<centos_arti_iso>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/esxi/6.2.0-gnr.bkc.6.2.10.6.34.x86_64_gnr_po_vmware_unattend.iso,vmware-unattend-centos.iso</centos_arti_iso>
+			<windows_arti_iso>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/esxi/20348.1547_14Feb2023_SERVER_EVAL_x64FRE_en-us_vmware_unattend.iso,vmware-unattend-windows.iso</windows_arti_iso>
+			<rhel_arti_iso>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/esxi/RHEL-8-2-0-BaseOS-x86_64_vmware_unattend.iso,vmware-unattend-rhel.iso</rhel_arti_iso>
+			<centos_arti_ovf>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/esxi/6.2.0-gnr.bkc.6.2.10.6.34.x86_64_vmware_centos_ovf.zip,vmware_centos_ovf.zip</centos_arti_ovf>
+			<rhel_arti_ovf>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/esxi/4.18.0_vmware_rhel.zip,vmware_rhel_ovf.zip</rhel_arti_ovf>
+			<windows_arti_ovf>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/esxi/20348.1547_14Feb2023_vmware_windows.zip,vmware_windows_ovf.zip</windows_arti_ovf>
+			<regirster_vm>
+				<cent0>vmware_centos_ovf\vmware_centos.ovf</cent0>
+				<rhel1>vmware_centos_ovf\vmware_centos.ovf</rhel1>
+				<rhel2>vmware_centos_ovf\vmware_centos.ovf</rhel2>
+				<rhel3>vmware_centos_ovf\vmware_centos.ovf</rhel3>
+				<rhel4>vmware_rhel_ovf\vmware_rhel.ovf</rhel4>
+				<windows1>vmware_windows_ovf\vmware_windows.ovf</windows1>
+				<windows2>vmware_windows_ovf\vmware_windows.ovf</windows2>
+				<rhel_0mem>vmware_rhel_ovf\vmware_rhel.ovf</rhel_0mem>
+				<rhel_1mem>vmware_rhel_ovf\vmware_rhel.ovf</rhel_1mem>
+			</regirster_vm>
+		</esxi>
+	</vm>
+</content>

@@ -1,0 +1,2113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content>
+    <common>
+        <!-- common - this section will have configuration which are common to all test cases -->
+        <!-- SOC family - example XCC or MCC or HBM or FSP -->
+        <soc_family>MCC</soc_family>
+        <!-- reboot_time - time required for rebooting the platform -->
+        <reboot_time>4000</reboot_time>
+        <!-- Number of times the platform is to be Rebooted -->
+        <reboot_iteration>10</reboot_iteration>
+        <!-- bring sut up, specify True or False -->
+        <bring_sut_up>True</bring_sut_up>
+        <!-- disable DTAF prepare section in tests, specify True or False -->
+        <test_prepare_disable>False</test_prepare_disable>
+	<!-- overwrite existing tool found on host with version found on Artifactory -->
+	<artifactory_tool_overwrite>False</artifactory_tool_overwrite>
+        <!-- Silicon used -->
+        <production_silicon>1</production_silicon>
+        <!-- sut_command_time - maximum time to execute command on SUT -->
+        <sut_command_time>1200</sut_command_time>
+        <!-- bios_boot_menu_entry_wait_time_in_sec - maximum time to enter the bios boot menu -->
+        <bios_boot_menu_entry_wait_time_in_sec>3600</bios_boot_menu_entry_wait_time_in_sec>
+        <!-- Itp_Halt_Time_In_Secs  - Waiting time  for ITP Halt -->
+        <itp_halt_time_in_sec>30</itp_halt_time_in_sec>
+        <!-- Itp_resume_in_sec -Waiting time for resume-->
+        <itp_resume_delay_time_in_sec>30</itp_resume_delay_time_in_sec>
+        <!-- bios_boot_menu_select_time_in_sec - maximum  time to select bios boot menu -->
+        <bios_boot_menu_select_time_in_sec>30</bios_boot_menu_select_time_in_sec>
+        <!-- execute_uefi_cmd_timeout_in_sec - maximum time to execute command in UEFI shell -->
+        <execute_uefi_cmd_timeout_in_sec>600</execute_uefi_cmd_timeout_in_sec>
+        <!-- sut_shutdown_delay - SUT Shutdown delay time -->
+        <sut_shutdown_delay>5</sut_shutdown_delay>
+        <!-- F7_KEY -  F7 Key to select UEFI Shell -->
+        <UEFI_SELECT_KEY>F7</UEFI_SELECT_KEY>
+        <!-- wait time out to reach OS after full AC Power Cycle - on SUT -->
+        <full_ac_cycle_time_out>1300</full_ac_cycle_time_out>
+		<!-- wait time after reading msr core values - on SUT -->
+        <time_sleep_msr>300</time_sleep_msr>
+        <!-- HQM ldb traffic tx/rx events-->
+        <hqm_ldb_traffic>1024</hqm_ldb_traffic>
+        <!-- pretest_bios_knobs_file_path provides bios settings before test sets test requirements -->
+        <pretest_bios_knobs_file_path> </pretest_bios_knobs_file_path>
+        <!-- get the micro code path -->
+        <micro_code_file_path>C:\Automation\micro_code</micro_code_file_path>
+
+        <itp_reset_time_out>400</itp_reset_time_out>
+
+        <sut_wake_up_time_in_sec>180</sut_wake_up_time_in_sec>
+        <!-- Test under a container environment -->
+        <is_container_env>False</is_container_env>
+
+        <ifwi>
+            <ifwi_override>IPClean</ifwi_override>
+            <!-- config related to ifwi binary to be programed on sut -->
+            <ifwi_file>
+                <!-- path of the ifwi folder in case of pfr container specify upto path of the container folder  -->
+                <path>C:\Users\njothirx\Downloads\IFWI_PFR_2020.29.2.02.0415_0017.D92_Debug\WLYDCRB.SYS.WR.64.2020.29.2.02.0415_0017.D92_P80070_LBG_SPS_Pfr_Container</path>
+                <!-- Name of the ifwi binary which needs to be flashed on the sut -->
+                <name>WLYDCRB.SYS.WR.64.2020.29.2.02.0415_0017.D92_P80070_LBG_SPS_Pfr_Container_BtgP3.bin</name>
+            </ifwi_file>
+            <ini_file>
+                <!-- path of the ini folder in case of pfr container specify upto path of the container folder  -->
+                <ini_path>""</ini_path>
+                <!-- Name of the ifwi ini filr which has bios knob list -->
+                <ini_name>""</ini_name>
+            </ini_file>
+            <ucode>
+                <!-- path of the ucode folder in case of pfr container specify upto path of the container folder  -->
+                <ucode_path>""</ucode_path>
+                <!-- Name of the ifwi ucode file which has bios knob list -->
+                <ucode_name>""</ucode_name>
+				<ucode_cpuid>""</ucode_cpuid>
+            </ucode>
+            <!-- ifwi folder profile container status -->
+            <pfr_container>True</pfr_container>
+            <container>
+                <!-- binary xml file which has to be modified according to boot profiles -->
+                <build_xml>LBGWC_Full_BKC.xml</build_xml>
+                <!-- binary file which would be triggered for building the ifwi -->
+                <build_file>build_pch_spi.py</build_file>
+            </container>
+            <!-- sps fit tool information -->
+			<fit_tool>
+				<!-- path of the sps fit tool -->
+				<path>C:\Users\ckumarix\Desktop\Backup\image\SPS_E5_04.04.02.061.0</path>
+				<!-- name of the executable sps fit tool -->
+				<name>spsFITc.exe</name>
+		    </fit_tool>
+             <!-- boot guard profile configuration -->
+			<profiles>
+                <!-- boot guard profile 0 configuration -->
+				<profile0>
+                    <!-- boot guard profile value which needs to updated in build xml -->
+					<bootProfile>Boot Guard Profile 0 - No_FVME</bootProfile>
+				</profile0>
+                <!-- boot guard profile 4 configuration -->
+                <profile4>
+                    <!-- boot guard profile value which needs to updated in build xml -->
+					<bootProfile>Boot Guard Profile 4 - FVE</bootProfile>
+                    <!-- boot guard profile keyManifest which needs to updated in build xml -->
+                    <keyManifest>0x1</keyManifest>
+				</profile4>
+                <!-- boot guard profile 3 configuration -->
+                <profile3>
+                    <!-- boot guard profile value which needs to updated in build xml -->
+					<bootProfile>Boot Guard Profile 3 - VM</bootProfile>
+                    <!-- boot guard profile keyManifest which needs to updated in build xml -->
+                    <keyManifest>0x1</keyManifest>
+				</profile3>
+                <!-- boot guard profile 5 configuration -->
+                <profile5>
+                    <!-- boot guard profile value which needs to updated in build xml -->
+					<bootProfile>Boot Guard Profile 5 - FVME</bootProfile>
+                    <!-- boot guard profile keyManifest which needs to updated in build xml -->
+                    <keyManifest>0x1</keyManifest>
+				</profile5>
+			</profiles>
+            <ifwi_profile_bin_path>
+                <profile0></profile0>
+                <profile3></profile3>
+                <profile4></profile4>
+                <profile5>C:\IFWI_Image\EGSDCRB1.SYS.OR.64.2020.49.7.16.0418_SPR_EBG_SPS.bin</profile5>
+                <current_ifwi_version>C:\IFWI_Image\2021.08.5.05_0053.d52\EGSDCRB.SYS.OR.64.2021.08.5.05.2229_SPR_EBG_SPS.bin</current_ifwi_version>
+                <previous_ifwi_version>C:\IFWI_Image\2021.07.5.04_0053.d11\EGSDCRB.SYS.OR.64.2021.07.5.04.1025_SPR_EBG_SPS_CRfix_2S.bin</previous_ifwi_version>
+            </ifwi_profile_bin_path>
+
+            <build_xml_modifier>
+                <!-- boot guard build xml section which has to be modified and their xml key name to be populated -->
+                <bootProfile>BtGuardProfileConfig</bootProfile>
+                <keyManifest>BtGuardKeyManifestId</keyManifest>
+            </build_xml_modifier>
+            <!-- BMC firmware file Path in the host which is associated with the current version from latest BKC mail -->
+            <current_bmc_fw_file>C:\Automation\BKC\Tools\OBMC-egs-0.35-0-g688ce5-377d8f4-pfr-oob.bin</current_bmc_fw_file>
+            <!-- BMC firmware file Path in the host which is associated with the previous version from latest BKC mail -->
+            <previous_bmc_fw_file>C:\Automation\BKC\Tools\OBMC-egs-0.30-0-g42d189-8fc454f-pfr-oob.bin</previous_bmc_fw_file>
+        </ifwi>
+
+        <!-- Delay before running command in uefi shell -->
+        <uefi_exec_delay>10</uefi_exec_delay>
+
+        <!-- Ac Time out delay in seconds for AC Cycle -->
+        <ac_timeout_delay_in_sec>4</ac_timeout_delay_in_sec>
+        <!-- DC power delay  -->
+        <dc_delay_in_sec>10</dc_delay_in_sec>
+	    <!-- wait time for AC power OFF and ON -->
+        <ac_power_off_wait_time_in_sec>20</ac_power_off_wait_time_in_sec>
+
+        <!-- Connect USB timeout -->
+        <usb_set_time>30</usb_set_time>
+        <!-- No of sockets the server has -->
+        <num_of_sockets>2</num_of_sockets>
+        <!-- Kernel Version for default Boot -->
+        <!-- for more info on this follow the read me under this path readme_support_docs/kernel_version_update.docx
+         example: 5.12.0-0507.intel_next.10_26_po.49.x86_64+server-->
+        <kernel_version_to_boot>5.19.0-gnr.po.bkc.1.0.0.rc2.0.x86_64</kernel_version_to_boot>
+    </common>
+
+    <memory>
+        <!-- configuration related memory test cases -->
+        <platform_cycler>
+            <!-- platform cycler stress test tool configuration -->
+            <number_cycles>2</number_cycles>
+            <!-- the amount of time to wait before rebooting again -->
+            <next_reboot_wait_time>60</next_reboot_wait_time>
+            <dcgraceful>
+                <!-- the amount of time for OS to be alive after DC power on -->
+                <dc_on_boot_time>400</dc_on_boot_time>
+                <!-- the amount of time stress test runs in OS -->
+                <test_execute_time>160</test_execute_time>
+            </dcgraceful>
+        </platform_cycler>
+        <stressapptest>
+            <!-- stress app test tool configuration -->
+            <stress_test_execute_time>200</stress_test_execute_time>
+        </stressapptest>
+        <fio>
+            <!-- FIO app test tool configuration -->
+            <fio_runtime>600</fio_runtime> <!-- give time in seconds -->
+            <!-- Give any one required operation among these read, write, randread, randwrite -->
+            <read_write_operation>read</read_write_operation>
+            <!-- Give ssd details in below format : seperated. Ignore OS SSD -->
+            <file_name> /dev/sdd</file_name>
+            <!-- Give expected bandwidth value -->
+            <expected_bandwidth>0</expected_bandwidth>
+        </fio>
+        <mlc>
+            <!-- MLC app test tool configuration -->
+            <mlc_runtime>1500</mlc_runtime> <!-- give time in seconds -->
+            <idle_latency_threshold>260</idle_latency_threshold> <!-- idle latency threshold value -->
+            <peak_memory_bandwidth>20000</peak_memory_bandwidth> <!-- peak memory Bandwidth threshold value -->
+            <memory_bandwidth>15000</memory_bandwidth> <!-- Memory Bandwidth threshold value -->
+            <loaded_latency_threshold>20000</loaded_latency_threshold> <!--Loaded latency threshold value -->
+        </mlc>
+        <stream>
+            <!-- Stream app test tool configuration -->
+            <stream_runtime>1500</stream_runtime> <!-- stream run time given in seconds -->
+            <stream_threshold_value>40</stream_threshold_value> <!-- threshold value -->
+        </stream>
+        <diskspd>
+            <!--diskspd tool command timeout -->
+            <disk_spd_run_time>1200</disk_spd_run_time>
+        </diskspd>
+        <frequencies_supported>
+            <frequency_list>2933,2600,2400,2200,2133</frequency_list>
+        </frequencies_supported>
+        <stream_mp>
+            <!-- Stream MP tool command timeout -->
+            <stream_run_time>1200</stream_run_time>
+            <!-- Rate threshold value for Stream MP tool -->
+            <rate_threshold_value>40</rate_threshold_value>
+        </stream_mp>
+        <ilvss>
+            <!-- ilvss tool run time in minutes -->
+            <ilvss_run_time>360</ilvss_run_time>
+            <!-- sleep time percent after ilVSS tool started execution on SUT -->
+            <script_sleep_time_percent>0.050</script_sleep_time_percent>
+            <!-- ilvss file name -->
+            <ilvss_file_name>ilvss-3.6.25.run</ilvss_file_name>
+            <!-- ilvss licence key file name -->
+            <ilvss_licence_key>VSS_Site_07-01-2024_license.key
+</ilvss_licence_key>
+        </ilvss>
+        <supported_highest_capacity_dimms>
+            <CLX>
+                <capacity>64</capacity>
+                <speed>2400</speed>
+                <formfactor>RDIMM</formfactor>
+            </CLX>
+            <ICX>
+                <capacity>64</capacity>
+                <speed>2933</speed>
+                <formfactor>RDIMM</formfactor>
+            </ICX>
+            <SKX>
+                <capacity>32</capacity>
+                <speed>2400</speed>
+                <formfactor>DIMM</formfactor>
+            </SKX>
+            <CPX>
+              <capacity>64</capacity>
+              <speed>3200</speed>
+              <formFactor>RDIMM</formFactor>
+            </CPX>
+            <SPR>
+              <capacity>64</capacity>
+              <speed>3200</speed>
+              <formFactor>RDIMM</formFactor>
+            </SPR>
+        </supported_highest_capacity_dimms>
+        <supported_smallest_capacity_dimms>
+            <!-- The minimum DIMM capacity supported by the platform. capacity in GB, Speed in MHz, locator is DIMM
+            position -->
+            <CLX>
+                <capacity>16</capacity>
+                <speed>2400</speed>
+                <locator>A1</locator>
+            </CLX>
+            <ICX>
+                <capacity>8</capacity>
+                <speed>2666</speed>
+                <locator>A1</locator>
+            </ICX>
+            <SKX>
+                <capacity>8</capacity>
+                <speed>2400</speed>
+                <locator>A1</locator>
+            </SKX>
+            <CPX>
+              <capacity>16</capacity>
+              <speed>3200</speed>
+              <locator>A1</locator>
+            </CPX>
+            <SPR>
+              <capacity>16</capacity>
+              <speed>3200</speed>
+              <locator>A1</locator>
+            </SPR>
+        </supported_smallest_capacity_dimms>
+
+        <!--BIOS POST memory in GiB, can have +-1% difference in checking-->
+        <bios_post_memory_capacity>512</bios_post_memory_capacity>
+
+        <!-- Total Intel Optane memory (DCPMM) connected to the system in GiB -->
+        <bios_total_dcpmm_memory_capacity>0</bios_total_dcpmm_memory_capacity>
+        <!-- Variance 2% percent in decimal to calculate from Total memory -->
+        <variance_percent>0.02</variance_percent>
+        <!-- For SPRHBM silicon we will get inbuilt HBM memory-->
+        <hbm_memory_per_socket>64</hbm_memory_per_socket>
+        <cr_1lm_power_cycle>
+				<cold_reboot_cycles>10</cold_reboot_cycles>
+				<warm_reboot_cycles>10</warm_reboot_cycles>
+				<s0_s5_s0>10</s0_s5_s0>
+		</cr_1lm_power_cycle>
+        <cr_2lm_power_cycle>
+				<cold_reboot_cycles>10</cold_reboot_cycles>
+				<warm_reboot_cycles>10</warm_reboot_cycles>
+				<s0_s5_s0>10</s0_s5_s0>
+		</cr_2lm_power_cycle>
+        <prime95>
+            <!-- configuration related prime95 stress test tool -->
+            <running_time>300</running_time>
+            <!-- CPU utilization percentage for verification -->
+            <percent_cpu_utilization>95</percent_cpu_utilization>
+            <!-- Used to find the memory utilization percentage of the system -->
+            <percent_memory_utilization>0.85</percent_memory_utilization>
+            <!-- Memory percentage to be used for torture test -->
+            <percent_memory_for_prime95_test>0.90</percent_memory_for_prime95_test>
+            <!-- Minimum Memory percent should be used for torture test -->
+            <minimum_prime95_mem_percent>0.20</minimum_prime95_mem_percent>
+            <!-- Maximum Memory percentage should be used for torture test -->
+            <maximum_prime95_mem_percent>0.50</maximum_prime95_mem_percent>
+            <!-- configuration related prime95 stress test tool execution time in minutes-->
+            <H82232_prime95_execution_time>30</H82232_prime95_execution_time>
+        </prime95>
+        <iwvss>
+            <!-- iwvss exe file name -->
+            <iwvss_exe_file_name>iwVSS_2.9.2.exe</iwvss_exe_file_name>
+            <!-- iwvss licence key file name -->
+            <iwvss_licence_key>VSS_Site_01-01-2022_license.key</iwvss_licence_key>
+            <!-- iwvss tool run time in minutes -->
+            <iwvss_run_time>360</iwvss_run_time>
+            <!-- CPU utilization percentage for verification -->
+            <cpu_utilization>100</cpu_utilization>
+            <!-- Used to find the memory utilization percentage of the system -->
+            <memory_utilization>0.75</memory_utilization>
+        </iwvss>
+        <!-- The maximum inaccessible reserved capacity of DCPMM in the ipmctl memory resources information-->
+        <max_reserved_capacity_gib>12</max_reserved_capacity_gib>
+        <!-- Supported memory frequencies to be tested based on platform family-->
+        <Supported_Frquencies>
+            <ICX>
+                <frequencies>2400,2600,2666,2800,2933</frequencies>
+            </ICX>
+            <SPR>
+                <frequencies>4000,4400,4800</frequencies>
+            </SPR>
+        </Supported_Frquencies>
+        <!-- Wait time to create the file system of the disk -->
+        <wait_time_to_create_filesystem>5000</wait_time_to_create_filesystem>
+
+        <!--  population of DDR and CR in the system -->
+        <!-- Values can only be from this list [8_plus_1/8_plus_4/8_plus_8/4_plus_4]-->
+        <cr_ddr_population>8_plus_8</cr_ddr_population>
+        <!-- CR DIMM Stepping populated in SUT like a1, b0-->
+        <cr_dimm_stepping>a1</cr_dimm_stepping>
+        <memtest86>
+            <usb_name>UEFI USB SanDisk 3.2Gen1 0401e 43ef492ec530ec584e11bd20b2226b818e3f908dcc1fa74a984cea0efa90c9f0000000000000000000030a8cde6ff94651891558107b8a83841</usb_name>
+            <usb_size>32</usb_size>
+        </memtest86>
+    </memory>
+
+    <power_management>
+        <!-- No of Ac Cycles -->
+        <ac_cycles>10</ac_cycles>
+        <!-- Reboot Cycles -->
+        <reboot_cycles>10</reboot_cycles>
+        <!-- No of Dc Cycles -->
+        <dc_cycles>10</dc_cycles>
+        <!-- No of S3 Cycles -->
+        <s3_cycles>2</s3_cycles>
+        <!-- S3 Waiting Time in seconds -->
+        <s3_waiting_time>15</s3_waiting_time>
+        <!-- No of S4 Cycles -->
+        <s4_cycles>2</s4_cycles>
+        <!-- S4 Waiting Time in seconds-->
+        <s4_waiting_time>15</s4_waiting_time>
+
+        <!-- No of Cold Reset Cycles -->
+        <cold_reset_cycles>10</cold_reset_cycles>
+        <dpmo>
+            <machine_check>False</machine_check>
+            <g3_cycles>5</g3_cycles>
+            <s5_cycles>5</s5_cycles>
+            <warm_reset_cycles>2</warm_reset_cycles>
+            <!-- set below to True or False -->
+            <ignore_mce_errors>True</ignore_mce_errors>
+            <health_check>True</health_check>
+            <topology>2S4Q</topology>
+            <link_speed>16.0 GT/s</link_speed>
+            <post_code_stuck_time></post_code_stuck_time>
+            <!-- specify two digit post code error, comma separated, without 0x -->
+            <ignore_pc_errors></ignore_pc_errors>
+            <!--<axon_analyzers>ubox,m2iosf,cha,core,mcchnl,upi,s3m,pm</axon_analyzers>-->
+            <axon_analyzers></axon_analyzers>
+			<!--<stop_on_failure>pcie,upi,dmi,pc_stuck,mce,boot_failure,state_change,dimm_thermal,cpu_thermal,os_not_alive,any</stop_on_failure>-->
+            <stop_on_failure>upi</stop_on_failure>
+            <!--<memory_health_check>system_memory_check,cpu_check,ddr_frequency_check,disk_space_check,numa_snc_check,reset_check,all</memory_health_check>-->
+            <memory_health_check_type>all</memory_health_check_type>
+            <!--<pythonsv_dump>mca_dump,mcu_dump,upi_dump,upi_error_dump,s3m_dump,pmc_dump,punit_dump,pcu_data,pmc_debug,pmc_histo,ebc_state,ddr_phy_dump,memss_dump,s3m_cfr_check,sut_soft_hard_hung</pythonsv_dump>-->
+            <pythonsv_dump></pythonsv_dump>
+            <ddr_frquency>4800</ddr_frquency>
+
+            <run_commands>
+                <run_on_failure>Yes</run_on_failure>
+                <!--<interval>5</interval>-->
+                <interval></interval>
+                <commands>mca_dump,dimm_dump</commands>
+            </run_commands>
+
+        </dpmo>
+        <!-- The value which has to update in the repo /etc/yum.repos.d/Intel-Embargo.repo for CentOS-->
+        <sed_update_socwatch>latest/202111012334</sed_update_socwatch>
+    </power_management>
+
+    <manageability>
+        <!-- Shutdown timeout -->
+        <shutdown_timeout>20</shutdown_timeout>
+        <!-- Soft Shutdown timeout -->
+        <softshutdown_timeout>60</softshutdown_timeout>
+        <!-- Miv warm reset timeout -->
+        <miv_warm_reset_timeout>1800</miv_warm_reset_timeout>
+    </manageability>
+
+    <storage>
+        <intelmastool_path>C:\Automation\BKC\Tools\Intel_MAS_CLI_Tool_Linux_1.12.zip</intelmastool_path>
+        <sata_drive_name>
+            <!-- SATA 1 drive name for RAID creation -->
+            <sata_1>CT480BX500SSD1 2020E3FB3A95</sata_1>
+            <!-- SATA 2 drive name for RAID creation -->
+            <sata_2>KINGSTON SA400S37480G 50026B76844A6EE8</sata_2>
+        </sata_drive_name>
+        <nvme_drive_name>
+            <!-- NVME 1 drive for RAID creation -->
+            <nvme_1>SAMSUNG MZPLJ1T6HBJR-00007 S55JNE0N800648</nvme_1>
+            <!-- NVME 2 drive for RAID creation -->
+            <nvme_2>SAMSUNG MZPLJ1T6HBJR-00007 S55JNE0N800614</nvme_2>
+        </nvme_drive_name>
+        <nvme_m2_drive_name>INTEL SSDPELKX010T8-PHLJ011300641P0I</nvme_m2_drive_name>
+        <sata_m2_drive_name>INTEL SSDSC2KB960G8 BTLA805312DR128I</sata_m2_drive_name>
+        <SATA>
+            <!-- Sata Achi Link Speed for 3 GB Port speed -->
+            <port_speed_for_3gb_port>3.0 Gb/s</port_speed_for_3gb_port>
+            <!-- Sata Achi Link Speed for 6GB Port speed-->
+            <port_speed_for_6gb_port>6.0 Gb/s</port_speed_for_6gb_port>
+        </SATA>
+        <SSD>
+            <!-- SATA drive manufacturer and model number details -->
+            <device>SSDSC2KB960G8,SSDSCKKI128G8</device>
+            <model_number>S4510/S4610/S4500/S4600,DC S3110 Series</model_number>
+        </SSD>
+        <reset_count>100</reset_count>
+        <timeout_in_secs>6000</timeout_in_secs>
+        <!-- Burnin run time in minutes -->
+		<burnin_test_runtime>360</burnin_test_runtime>
+
+        <!-- HW VROC Type can be Premium/Standard/Intel-SSD-only-->
+        <hw_vroc_key_type>Intel-SSD-only</hw_vroc_key_type>
+    </storage>
+
+     <multisocket>
+        <dps_configuration>0-0-0-0-1-0-0-0</dps_configuration>
+    </multisocket>
+
+    <manageability>
+        <!-- Shutdown timeout -->
+        <shutdown_timeout>20</shutdown_timeout>
+        <!-- Soft Shutdown timeout -->
+        <softshutdown_timeout>60</softshutdown_timeout>
+    </manageability>
+
+    <ras>
+        <memory>
+            <socket>0</socket>
+            <channel>0</channel>
+            <memory_controller>0</memory_controller>
+            <core>0</core>
+            <thread>0</thread>
+        </memory>
+        <!-- Pcie Device Name-->
+        <pcie_device_name>Ethernet Controller XXV710</pcie_device_name>
+        <!-- configuration related ras test cases -->
+        <!-- Default Memory Address for Injecting Memory Errors -->
+        <einj_mem_addr>0x0000000040001000</einj_mem_addr>
+        <!-- Default Pcie Address to Inject Pcie errors -->
+        <einj_pcie_addr>0x0</einj_pcie_addr>
+        <!-- Default Pcie Bridge Values for calculating the Sec Bus Ex: 37:01.0,80.05.0-->
+        <einj_pcie_bridge_values></einj_pcie_bridge_values>
+        <!-- Default Address to inject Correctable error -->
+        <einj_ce_addr>0x0000000022002000</einj_ce_addr>
+        <!-- Default Address to inject UnCorrectable error -->
+        <einj_uce_addr>0x0000000024002000</einj_uce_addr>
+        <!-- Default Address to inject ACPI Correctable error -->
+        <acpi_einj_ce_address>0x0000000012345000</acpi_einj_ce_address>
+        <!-- Waiting time after injecting Un Correctable Error -->
+        <waiting_time_after_injecting_uncorr_error>120</waiting_time_after_injecting_uncorr_error>
+        <!-- Default Mask Value for Injecting the Errors-->
+        <mask_value>0xfffffffffffff000</mask_value>
+        <!-- wait time for DMI Link Down -->
+        <dmi_link_down>25</dmi_link_down>
+        <!--wait time to execute einj tests during stressapptest -->
+        <wait_time_to_einj_stressapptests>3600</wait_time_to_einj_stressapptests>
+        <!-- wait for pcie cto timeout reconfig in sec -->
+        <pcie_cto_timeout_reconfig>120</pcie_cto_timeout_reconfig>
+        <linux_os_pcie_bdf>38:0.0</linux_os_pcie_bdf>
+        <!--Full path for NVME device to mount on Linux-->
+        <partition_to_mount>/dev/nvme0n1p1</partition_to_mount>
+
+        <sut_nic_endpoint1_ip_address_1>192.0.0.15</sut_nic_endpoint1_ip_address_1>
+        <!-- Ip address of the second DUT NIC used in the SUT: First Port -->
+        <sut_nic_endpoint2_ip_address_1>192.0.0.25</sut_nic_endpoint2_ip_address_1>
+         <!-- Netdev name of the first DUT NIC used in the SUT: First port -->
+        <sut_nic_endpoint1_netdev_1>enP1p152s0f0np0</sut_nic_endpoint1_netdev_1>
+        <!-- Netdev name of the second DUT NIC used in the SUT: First port -->
+        <sut_nic_endpoint2_netdev_1>ens28f0</sut_nic_endpoint2_netdev_1>
+        <!-- Driver name of the DUT NIC used in the SUT -->
+        <sut_nic_driver_module_name>i40e</sut_nic_driver_module_name>
+        <!-- Minimum number of UPI "other_node" hits desired to call UPI traffic sufficient number is scaled by
+         alt_socket_einj_injection_iteration_count in the watch_numa function -->
+        <sut_upi_minimum_hit_threshold_count>100</sut_upi_minimum_hit_threshold_count>
+
+        <!-- get list of nvme devices -->
+        <nvme_disks_linux>/dev/nvme0n1,/dev/nvme1n1,/dev/nvme2n1,/dev/nvme3n1</nvme_disks_linux>
+        <cscripts_ei_pcie_device>
+            <socket>1</socket>
+            <pxp_port>pxp0.pcieg5.port2</pxp_port>
+        </cscripts_ei_pcie_device>
+        <aer_pcie_slot_info>
+            <socket>0,1</socket>
+            <pxp_port>pxp0.pcieg5.port2,pxp0.pcieg5.port2</pxp_port>
+        </aer_pcie_slot_info>
+        <keysight_pcie_card>
+            <socket>0</socket>
+            <pxp_port>pxp3.pcieg5.port0</pxp_port>
+            <keysight_pcie_card_width>2</keysight_pcie_card_width>
+            <keysight_pcie_card_gen>1</keysight_pcie_card_gen>
+            <!--For Windows -->
+            <keysight_card_bdf>38:00.0</keysight_card_bdf>
+            <memory_addr_to_inject_error>0x00100000</memory_addr_to_inject_error>
+        </keysight_pcie_card>
+        <io_virtualization>
+            <pcie_degrade_ports>
+                <socket>0</socket>
+                <pxp_port>pxp5.flexbus.port0</pxp_port>
+            </pcie_degrade_ports>
+            <number_of_vms>1</number_of_vms>
+            <select_pass_through_type>Network</select_pass_through_type>
+            <Network>
+                <!-- <pass_through_device_name>Intel(R) I210 Gigabit Network Connection,Intel(R) Ethernet Converged Network Adapter X710</pass_through_device_name>-->
+                <pass_through_device_name>Intel(R) Ethernet Network Adapter E810-XXV-4</pass_through_device_name>
+                <!--<device_id>DEV_1593,DEV_15F4<device_id>-->
+                <device_id_to_install_driver>DEV_1593</device_id_to_install_driver>
+                <!--<driver_inf_file_name>icea68.inf,icea65.inf</driver_inf_file_name>-->
+                <driver_inf_file_name>icea68.inf</driver_inf_file_name>
+                <driver_tool_path>C:\Automation\Tools\Windows\intel_lan_v25_5.zip</driver_tool_path>
+            </Network>
+            <NVMe>
+                <pass_through_device_name>Standard NVM Express Controller</pass_through_device_name>
+                <device_id_to_install_driver>DEV_A824</device_id_to_install_driver>
+                <!--<driver_inf_file_name>icea68.inf,icea65.inf</driver_inf_file_name>-->
+                <driver_inf_file_name>icea68.inf</driver_inf_file_name>
+            </NVMe>
+            <platform_default_network_adapter_name>Intel(R) Ethernet Controller I225-LM</platform_default_network_adapter_name>
+            <sriov_adapter>Intel(R) Ethernet Converged Network Adapter X710 #3</sriov_adapter>
+            <loop_back_adapter>Intel(R) Ethernet Converged Network Adapter X710-4</loop_back_adapter>
+            <ethernet_adapter_for_vm>Intel(R) Ethernet Converged Network Adapter X710 #2</ethernet_adapter_for_vm>
+            <sut_static_ip>192.168.1.104</sut_static_ip>
+            <win_2019_vm_static_ip>192.168.1.105</win_2019_vm_static_ip>
+            <win_2016_vm_static_ip>192.168.1.106</win_2016_vm_static_ip>
+            <vm_static_ip>192.168.1.109</vm_static_ip>
+            <sut_gateway_ip>192.168.1.0</sut_gateway_ip>
+            <sut_subnet_mask>255.255.255.0</sut_subnet_mask>
+            <linux_vhdx_drive_name>F:\\</linux_vhdx_drive_name>
+            <windows_2019_vhdx_drive_name>E:\\</windows_2019_vhdx_drive_name>
+            <windows_2016_vhdx_drive_name>D:\\</windows_2016_vhdx_drive_name>
+            <!-- Time(in sec) to put stress on VM -->
+            <vm_stress_time_in_sec>86400</vm_stress_time_in_sec>
+        </io_virtualization>
+        <eXtreme_Core_Count_multiplier>4</eXtreme_Core_Count_multiplier>
+        <High_Core_Count_multiplier>3</High_Core_Count_multiplier>
+        <low_Core_Count_multiplier>2</low_Core_Count_multiplier>
+        <Iax_BDF>6f:02.0</Iax_BDF>
+        <einj_mem_location>
+            <socket>0</socket>
+            <channel>4</channel>
+            <sub_channel>0</sub_channel>
+            <dimm>0</dimm>
+            <rank>0</rank>
+            <sub_rank>0</sub_rank>
+            <bank_group>2</bank_group>
+            <bank>3</bank>
+        </einj_mem_location>
+        <bios_config>True</bios_config>
+        <capsule_update>True</capsule_update>
+        <error_einj_flag>True</error_einj_flag>
+
+    </ras>
+
+    <pcie>
+        <pcie_slots_bifurcation>
+            <pcie_bifurcation_auto_discovery>False</pcie_bifurcation_auto_discovery>
+			<socket_pxp_name>s1_pxp1</socket_pxp_name>
+			<!-- xDxCxBxA is mapped like D->P3 C->P2 B->P1 A->P0 -->
+			<bifurcation>x4x4x4x4</bifurcation>
+            <speed>16-None-16-16</speed>
+			<width>4-None-4-4</width>
+		</pcie_slots_bifurcation>
+		<io_stress>
+            <!-- HSIO Stress PCIe  -->
+			<runtime>300</runtime>
+			<target_bus>auto</target_bus> <!-- Bus list in hex without spaces, eg: 38,98; Use "auto" to auto-detect -->
+            <ptg>  <!-- PTG Content -->
+                <each_pattern_runtime>10</each_pattern_runtime> <!-- Seconds to run each rd/wr pattern in test case -->
+                <address>0x400000000</address>
+            </ptg>
+            <network>
+                <!-- Source Target Pair format: SBDF1-SBDF2,SBDF3-SBDF4,... -->
+                <source_target_pair>0000:81:00.0-0000:81:00.1,0000:04:00.0-0000:04:00.1</source_target_pair>
+            </network>
+        </io_stress>
+        <cxl>
+            <cxl_auto_discovery>True</cxl_auto_discovery>
+            <num_of_cycle>150</num_of_cycle>
+            <!--   Args must be mapped with other args of the block.
+               If multiple devices - separate by commas, but still be mapped sequentially with each other   -->
+            <cxl_slots>
+                <sockets>0,1</sockets>
+                <ports>pxp3.pcieg5.port0,pxp1.pcieg5.port0</ports>
+                <bit_rate>32,32</bit_rate>
+                <current_link_speed>0x5,0x5</current_link_speed>
+                <version>CXL 1.1,CXL 1.1</version>
+                <device_type>Type 2,Type 2</device_type>
+                <link_width>16,16</link_width>
+                <cxl_cache_en>0x1,0x1</cxl_cache_en>
+                <cxl_io_en>0x1,0x1</cxl_io_en>
+                <cxl_mem_en>0x1,0x1</cxl_mem_en>
+                <devsec_ven_id>0x1e98,0x1e98</devsec_ven_id>
+				<mem_range>0,1</mem_range>
+            </cxl_slots>
+            <!--   Args must be mapped with other args of the block.
+               If multiple devices - separate by commas, but still be mapped sequentially with each other   -->
+            <cxl_cards_dax_mapping>
+                <sockets>0,1</sockets>
+                <ports>pxp3.pcieg5.port0,pxp1.pcieg5.port0</ports>
+                <dax_device>dax0.0,dax1.0</dax_device>
+            </cxl_cards_dax_mapping>
+            <cxl_write_bw_value>12.13</cxl_write_bw_value>
+            <cxl_read_bw_value>17.14</cxl_read_bw_value>
+            <ctg>
+                 <!--bus number should be in Hex-->
+                <sockets>0,1</sockets>
+                <targeted_bus>38,98</targeted_bus>
+                <stress_execution_timeout_in_sec>7200</stress_execution_timeout_in_sec>
+                <targeted_peer_point>dax0.0,dax1.0</targeted_peer_point>
+                <targeted_dimms>
+                    <socket_0>CPU0_DIMM_A1,CPU0_DIMM_G1</socket_0>
+                    <socket_1>CPU1_DIMM_A1,CPU1_DIMM_G1</socket_1>
+                </targeted_dimms>
+            </ctg>
+        </cxl>
+
+        <!--- <pcie_slots_reg>s1.pxp0.port2,s0.pxp3.port0</slot_reg> -->
+        <pxp_port_list>s1.pxp0.port2,s0.pxp3.port0</pxp_port_list>
+
+
+        <!-- Time to run the Cycling Test Case in Second-->
+        <cycling_time>43200</cycling_time>
+
+        <device_ids>1592</device_ids>
+
+        <!-- Number of Cycle To Execute Devcon Utility Test -->
+        <no_of_cycle>20</no_of_cycle>
+
+        <!-- Require the Number of Cycle Test for DriverCycle.ch Tool -->
+        <number_of_cycle_to_load_unload_driver>500</number_of_cycle_to_load_unload_driver>
+
+        <!-- Number of Cycle Test for LTSSM Tool -->
+
+        <no_of_cycle_to_test>200</no_of_cycle_to_test>
+
+		<!-- Name of debug tool provider used for ltssm (possible values: ltssmtool, cscripts, pythonsv) -->
+		<debug_tool_provider>ltssmtool</debug_tool_provider>
+		<!-- Auto-discover PCIe ports for LTSSM testing instead of picking them from this xml file -->
+		<pcie_ltssm_auto_discovery>False</pcie_ltssm_auto_discovery>
+		<!-- Name of silicon reg provider to use for LTSSM testing: CscriptsSiliconRegProvider or PythonsvSiliconRegProvider -->
+		<silicon_reg_provider>CscriptsSiliconRegProvider</silicon_reg_provider>
+
+
+		<!-- Add device-id based on the device which were in-build on the SUT -->
+        <device_driver_map>
+			<config_device_driver>False</config_device_driver>
+			<CPU>
+				<device_id>352a</device_id>
+			</CPU>
+			<PCH>
+				<device_id>None</device_id>
+			</PCH>
+			<XHCI>
+				<device_id>1bcd</device_id>
+			</XHCI>
+			<SATA>
+				<device_id>None</device_id>
+			</SATA>
+			<ME>
+				<device_id>None</device_id>
+			</ME>
+			<LPC_ESPI>
+				<device_id>1b81</device_id>
+			</LPC_ESPI>
+			<SMBUS>
+				<device_id>1bc9</device_id>
+			</SMBUS>
+			<SPI>
+                <device_id>1bca</device_id>
+            </SPI>
+            <ETHERNET>
+				<device_id>15f4</device_id>
+				<driver>e1000e</driver>
+			</ETHERNET>
+			<AHCI>
+				<device_id>None</device_id>
+			</AHCI>
+		</device_driver_map>
+
+		<!-- comma separated list of LTSSM tests
+		cscripts/pythonsv supported tests: linkRetrain,linkDisable,SpeedChange,txEqRedo,sbr,SpeedChangeAll,aspml1
+		ltssmtool supported tests: pml1,linkRetrain,linkDisable,SpeedChange,txEqRedo,sbr,flr -->
+		<ltssm_test_list>pml1,linkRetrain,linkDisable,SpeedChange,txEqRedo,sbr,flr</ltssm_test_list>
+
+        <bifurcation_select_slot>slot_e_bifurcation_port0,slot_e_bifurcation_port1,slot_e_bifurcation_port2,slot_e_bifurcation_port3</bifurcation_select_slot>
+
+        <!-- If Mellonax cards are present in the system Please mark it as True and fill in the device id
+        details of those cards in the below tag pcie_disable_cards_device_id_list-->
+        <pcie_disable>False</pcie_disable>
+        <pcie_disable_cards_device_id_list>mlx5_ib,mlx5_core,i40iw,i40e</pcie_disable_cards_device_id_list>
+
+        <!-- Tag to select Required Slot Info for TC: PI_PCIE_All_Slot_Populated_Reset_W,
+         PI_PCIe_Endpoint_LTSSM_Testing_Gen4_L -->
+        <select_slot>All_Slot</select_slot>
+        <auto_select_slots>True</auto_select_slots>
+		<cscript_pcie_U_2>mcio_s0_pxp5_pcieg_port1</cscript_pcie_U_2>
+
+        <!-- All Slot -->
+        <pcie_device_population>
+            <pcie_m_2>
+                <Pcie_Device_Name>PCIe NVMe M.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>8</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x2</pcie_device_width>
+                <bus>04</bus>
+            </pcie_m_2>
+            <slot_c>
+                <Pcie_Device_Name>SAMSUNG MZPLJ1T6HBJR-00007</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>8</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x1</pcie_device_width>
+                <bus>04</bus>
+            </slot_c>
+
+            <!-- left_riser_bottom == S0 PXP1 -->
+            <left_riser_bottom>
+                <Pcie_Device_Name>ETHERNET NETWORK ADAPTER - XXV710</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>8</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x8</pcie_device_width>
+            </left_riser_bottom>
+
+            <!-- left_riser_top == S0 PXP2 -->
+            <left_riser_top>
+                <Pcie_Device_Name>ETHERNET NETWORK ADAPTER - XXV710</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>5</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </left_riser_top>
+
+            <!-- SLOT B == S0 PXP3 -->
+            <slot_b>
+                <Pcie_Device_Name>ETHERNET NETWORK ADAPTER - X710</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>8</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x8</pcie_device_width>
+            </slot_b>
+
+            <!-- SLOT D == S1 PXP0 -->
+            <slot_d>
+                <Pcie_Device_Name>ETHERNET NETWORK ADAPTER - XXV710</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>8</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x8</pcie_device_width>
+            </slot_d>
+
+            <!-- SLOT E == S1 PXP1 -->
+            <slot_e>
+                <Pcie_Device_Name>ETHERNET NETWORK ADAPTER - XXV710</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>8</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x8</pcie_device_width>
+            </slot_e>
+
+            <!-- Right Riser Bottom == S1 PXP3 -->
+            <right_riser_bottom>
+                <Pcie_Device_Name>ETHERNET NETWORK ADAPTER - XXV710</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>8</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x8</pcie_device_width>
+            </right_riser_bottom>
+
+            <!-- Right Riser Top == S1 PXP2 -->
+            <right_riser_top>
+                <Pcie_Device_Name>ETHERNET NETWORK ADAPTER - XXV710</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>8</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x8</pcie_device_width>
+            </right_riser_top>
+
+            <!-- MCIO Socket -0 -->
+            <mcio_s0_pxp4_pcieg_port0>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s0_pxp4_pcieg_port0>
+            <mcio_s0_pxp4_pcieg_port1>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s0_pxp4_pcieg_port1>
+            <mcio_s0_pxp4_pcieg_port2>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s0_pxp4_pcieg_port2>
+            <mcio_s0_pxp4_pcieg_port3>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s0_pxp4_pcieg_port3>
+            <mcio_s0_pxp5_pcieg_port0>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s0_pxp5_pcieg_port0>
+            <mcio_s0_pxp5_pcieg_port1>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s0_pxp5_pcieg_port1>
+            <mcio_s0_pxp5_pcieg_port2>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s0_pxp5_pcieg_port2>
+            <mcio_s0_pxp5_pcieg_port3>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s0_pxp5_pcieg_port3>
+
+            <!-- MCIO Socket 1 -->
+            <mcio_s1_pxp4_pcieg_port0>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s1_pxp4_pcieg_port0>
+            <mcio_s1_pxp4_pcieg_port1>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s1_pxp4_pcieg_port1>
+            <mcio_s1_pxp4_pcieg_port2>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s1_pxp4_pcieg_port2>
+            <mcio_s1_pxp4_pcieg_port3>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s1_pxp4_pcieg_port3>
+            <mcio_s1_pxp5_pcieg_port0>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s1_pxp5_pcieg_port0>
+            <mcio_s1_pxp5_pcieg_port1>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s1_pxp5_pcieg_port1>
+            <mcio_s1_pxp5_pcieg_port2>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s1_pxp5_pcieg_port2>
+            <mcio_s1_pxp5_pcieg_port3>
+                <Pcie_Device_Name>U.2</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </mcio_s1_pxp5_pcieg_port3>
+            <slot_e_bifurcation_port0>
+                <Pcie_Device_Name>Samsung Electronics Co Ltd NVMe SSD</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </slot_e_bifurcation_port0>
+            <slot_e_bifurcation_port1>
+                <Pcie_Device_Name>Samsung Electronics Co Ltd NVMe SSD</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </slot_e_bifurcation_port1>
+            <slot_e_bifurcation_port2>
+                <Pcie_Device_Name>Samsung Electronics Co Ltd NVMe SSD</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </slot_e_bifurcation_port2>
+            <slot_e_bifurcation_port3>
+                <Pcie_Device_Name>Samsung Electronics Co Ltd NVMe SSD</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </slot_e_bifurcation_port3>
+            <slot_b_bifurcation_port0>
+                <Pcie_Device_Name>Samsung Electronics Co Ltd NVMe SSD</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </slot_b_bifurcation_port0>
+            <slot_b_bifurcation_port1>
+                <Pcie_Device_Name>Samsung Electronics Co Ltd NVMe SSD</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </slot_b_bifurcation_port1>
+            <slot_b_bifurcation_port2>
+                <Pcie_Device_Name>Samsung Electronics Co Ltd NVMe SSD</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </slot_b_bifurcation_port2>
+            <slot_b_bifurcation_port3>
+                <Pcie_Device_Name>Samsung Electronics Co Ltd NVMe SSD</Pcie_Device_Name>
+                <pcie_device_speed_in_gt_sec>16</pcie_device_speed_in_gt_sec>
+                <pcie_device_width>x4</pcie_device_width>
+            </slot_b_bifurcation_port3>
+
+        </pcie_device_population>
+        <!-- slot C Device Details -->
+        <pcie_device_details>
+            <SPR>
+                <slot_c>
+                    <device_id>1572</device_id>
+                    <linkcap_speed>8GT/s</linkcap_speed>
+                    <linkcap_width>0x1</linkcap_width>
+                </slot_c>
+            </SPR>
+        </pcie_device_details>
+        <cpu_root>
+            <ICX>
+                <lnkcap>8GT/s</lnkcap>
+            </ICX>
+            <SPR>
+                <lnkcap>32GT/s</lnkcap>
+            </SPR>
+        </cpu_root>
+        <dmi>
+            <speed>Gen3</speed>
+            <width>x8</width>
+            <vendor_id>0x8086</vendor_id>
+            <deviced_id>0x347A</deviced_id>
+        </dmi>
+        <cards>
+            <card>
+                <Type>Ethernet controller</Type>
+                <Name>Intel Corporation Ethernet Connection</Name>
+                <Width>x1</Width>
+                <Speed>2.5GT/s</Speed>
+                <Plugged-in>Yes</Plugged-in>
+            </card>
+            <card>
+                <Type>PCI bridge</Type>
+                <Name>Intel Corporation C620 Series Chipset Family PCI Express Root Port #6</Name>
+                <Width>x1</Width>
+                <Speed>5GT/s</Speed>
+                <Plugged-in>Yes</Plugged-in>
+            </card>
+        </cards>
+        <nvme_cards>
+            <!-- ADD NVME PCIe card interface details which is connected to particular PCIe slot-->
+            <card1>INTEL SSDPED1K375GA-FUKS7131003C375AGN</card1>
+        </nvme_cards>
+        <pcie_slots>
+            <!--Add True if the PCIe NVMe Card connected to the Particular PCIe Slot in the SUT else False -->
+            <left_riser_bottom_slot>False</left_riser_bottom_slot>
+            <left_riser_top_slot>False</left_riser_top_slot>
+            <slot_b>False</slot_b>
+            <right_riser_bottom_slot>False</right_riser_bottom_slot>
+            <right_riser_top_slot>False</right_riser_top_slot>
+            <slot_e>False</slot_e>
+            <mcio_s0_pxp4_pcieg_port2>True</mcio_s0_pxp4_pcieg_port2>
+            <mcio_s0_pxp4_pcieg_port3>False</mcio_s0_pxp4_pcieg_port3>
+        </pcie_slots>
+        <pei_card>
+            <err_type>poisonedTLP</err_type>
+        </pei_card>
+    </pcie>
+
+
+    <drivers>
+        <network_drivers>C:\Automation\BKC\Drivers\Intel_LAN_v25_5.zip</network_drivers>
+    </drivers>
+    <network>
+        <spr>
+            <foxville>
+                  <devices>
+                      <device>
+                          <inf_file_name>e2f68.inf</inf_file_name>
+                          <deviceid>DEV_15F2</deviceid>
+                      </device>
+                  </devices>
+            </foxville>
+            <fortville>
+                  <devices>
+                      <device>
+                          <inf_file_name>i40ea68.inf</inf_file_name>
+                          <deviceid>DEV_158</deviceid>
+                      </device>
+                  </devices>
+            </fortville>
+            <carlsville>
+                  <devices>
+                      <device>
+                          <inf_file_name>i40eb68.inf</inf_file_name>
+                          <deviceid>DEV_15FF</deviceid>
+                      </device>
+                  </devices>
+            </carlsville>
+            <jacksonville>
+                  <devices>
+                      <device>
+                          <inf_file_name>e1d68x64.inf</inf_file_name>
+                          <deviceid>DEV_15F4</deviceid>
+                      </device>
+                  </devices>
+            </jacksonville>
+            <columbiaville>
+                  <devices>
+                      <device>
+                          <inf_file_name>icea65.inf</inf_file_name>
+                          <deviceid>DEV_159</deviceid>
+                      </device>
+                  </devices>
+            </columbiaville>
+            <sut1_ip>10.10.10.10</sut1_ip>
+            <sut2_ip>10.10.10.11</sut2_ip>
+            <sut2_usb_to_ethernet_ip>192.168.1.110</sut2_usb_to_ethernet_ip>
+            <sut1_ipv6>2001:db8::1</sut1_ipv6>
+            <sut2_ipv6>2001:db8::2</sut2_ipv6>
+        </spr>
+    </network>
+
+    <security>
+        <!-- configuration related security test cases -->
+            <SGX>
+                <SGX_INTEGRITY>logical_integrity</SGX_INTEGRITY> # Logical integrity mode memory integrity bios knob disabled
+                <!-- <SGX_INTEGRITY>cryptographic_integrity</SGX_INTEGRITY> --> # cryptographic integrity mode memory integrity bios knob enabled
+                <SGX_SVN>
+                    <STEPPINGS>
+                        <A0>1</A0>
+			            <B0>2</B0>
+			            <C0>2</C0>
+                        <D0>3</D0>
+			            <E0>1</E0>
+                    </STEPPINGS>
+                </SGX_SVN>
+                <SGX_APP>
+                    <LINUX>
+                        <RHEL_BASE_KERNEL>
+                            <PSW_ZIP>C:\Automation\Tools\SPR\Linux\SGX-2.11.100.2-RHEL82.zip</PSW_ZIP>
+                            <OLD_PSW_ZIP>C:\Automation\Tools\SPR\Linux\sgx-2.14.100.2-rhel.zip</OLD_PSW_ZIP>
+                            <SGX_PATH>/opt/APP/APPs/SGX_Rhel</SGX_PATH>
+                            <SGX_SDK>/opt/intel</SGX_SDK>
+                            <SIMPLE_ENCLAVE_PATH>/opt/intel/sgxsdk/SampleCode/SampleEnclave</SIMPLE_ENCLAVE_PATH>
+                            <LOCAL_ATTESTATION_PATH>/opt/intel/sgxsdk/SampleCode/LocalAttestation</LOCAL_ATTESTATION_PATH>
+                            <PSW_INSTALL_BINARY_MATCH>sgx_linux_x64_driver_1.4*</PSW_INSTALL_BINARY_MATCH>
+                            <SGX_FVT_ZIP>C:\Automation\Tools\SPR\Linux\SGXFunctionalValidation_v0.8.4.0.tar.gz</SGX_FVT_ZIP>
+                            <SGX_FVT_BINARY>SGXFunctionalValidation</SGX_FVT_BINARY>
+                            <PSW_LOCAL_REPO_NAME>sgx_rpm_local_repo.tgz</PSW_LOCAL_REPO_NAME>
+                            <SGX_SDK_BINARY_MATCH>sgx_linux_x64_sdk*</SGX_SDK_BINARY_MATCH>
+                            <SDK_ADD_ENVIRONMENT>source /opt/intel/sgxsdk/environment</SDK_ADD_ENVIRONMENT>
+                            <SEAL_UNSEAL_PATH>/opt/intel/sgxsdk/SampleCode/SealUnseal</SEAL_UNSEAL_PATH>
+                            <MP_REGISTRATION_ZIP>C:\Automation\Tools\SPR\Linux\1.6.90-RHEL.zip</MP_REGISTRATION_ZIP>
+                            <MP_VERSION_NUMBER>1.6.90</MP_VERSION_NUMBER>
+                            <LOCAL_ATTESTATION_MP_ZIP>LocalAttestationMP.tar.gz</LOCAL_ATTESTATION_MP_ZIP>
+                            <SGX_BW_TEST>C:\Automation\Tools\SPR\Linux\sgx_max_bw_test_16gb.tgz</SGX_BW_TEST>
+                            <MAX_CONT_TEST>C:\Automation\Tools\SPR\Linux\sgx_max_contention_test.tgz</MAX_CONT_TEST>
+                            <MAX_BW_CLFLUSH_TEST>C:\Automation\Tools\SPR\Linux\sgx_max_bw_test_clflushopt_16gb.tgz</MAX_BW_CLFLUSH_TEST>
+                        </RHEL_BASE_KERNEL>
+                        <RHEL_NXT_KERNEL>
+                            <PSW_SGX_INSTALLER_PATH>/opt/APP/APPs/SGX_Rhel_Intel-Next/Installer</PSW_SGX_INSTALLER_PATH>
+                            <SGX_PATH>/opt/APP/APPs/SGX_Rhel_Intel-Next</SGX_PATH>
+                            <SGX_SDK>/opt/intel</SGX_SDK>
+                            <SIMPLE_ENCLAVE_PATH>/opt/intel/sgxsdk/SampleCode/SampleEnclave</SIMPLE_ENCLAVE_PATH>
+                            <LOCAL_ATTESTATION_PATH>/opt/intel/sgxsdk/SampleCode/LocalAttestation</LOCAL_ATTESTATION_PATH>
+                            <PSW_INSTALL_BINARY_MATCH>sgx_linux_x64_driver*</PSW_INSTALL_BINARY_MATCH>
+                            <SGX_FVT_ZIP>C:/Automation/bkc/tools/SGXFunctionalValidation.zip</SGX_FVT_ZIP>
+                            <SGX_FVT_BINARY>SGXFunctionalValidation</SGX_FVT_BINARY>
+                            <PSW_LOCAL_REPO_NAME>sgx_rpm_local_repo.tgz</PSW_LOCAL_REPO_NAME>
+                            <PSW_LOCAL_REPO_PATH>/opt/APP/APPs/SGX_Rhel_Intel-Next/Installer</PSW_LOCAL_REPO_PATH>
+                            <SGX_SDK_BINARY_MATCH>sgx_linux_x64_sdk*</SGX_SDK_BINARY_MATCH>
+                            <SDK_ADD_ENVIRONMENT>source /opt/intel/sgxsdk/environment</SDK_ADD_ENVIRONMENT>
+                            <SEAL_UNSEAL_PATH>/opt/intel/sgxsdk/SampleCode/SealUnseal</SEAL_UNSEAL_PATH>
+                            <MP_REGISTRATION_ZIP>C:\Automation\Tools\SPR\Linux\1.6.90-RHEL.zip</MP_REGISTRATION_ZIP>
+                            <MP_VERSION_NUMBER>1.6.90</MP_VERSION_NUMBER>
+                            <LOCAL_ATTESTATION_MP_ZIP>LocalAttestationMP.tar.gz</LOCAL_ATTESTATION_MP_ZIP>
+                            <SGX_BW_TEST>C:\Automation\Tools\SPR\Linux\sgx_max_bw_test_16gb.tgz</SGX_BW_TEST>
+                            <MAX_BW_CLFLUSH_TEST>C:\Automation\Tools\SPR\Linux\sgx_max_bw_test_clflushopt_16gb.tgz</MAX_BW_CLFLUSH_TEST>
+                        </RHEL_NXT_KERNEL>
+                    </LINUX>
+                    <WINDOWS>
+                        <PSW_SGX_APP_INSTALLER>sgx-2.15.100.4.zip</PSW_SGX_APP_INSTALLER>
+                        <SGX_PATH>C:\OWR\SGX_PSW</SGX_PATH>
+                        <FVT_PATH>C:\OWR\SGXFVT_Tool</FVT_PATH>
+                        <SGX_SDK>C:\Automation\bkc\tools\sgx_sdk_build.zip</SGX_SDK>
+                        <!--Intel SDK installer required to run multiple SGX application-->
+		    	<SGX_SDK_INSTALLER>Intel_SGX_Windows_SDK_2.13.100.2.exe</SGX_SDK_INSTALLER>
+                        <SGX_APPS_DIR>C:\OWR</SGX_APPS_DIR>
+                        <SIMPLE_ENCLAVE_PATH></SIMPLE_ENCLAVE_PATH>
+                        <LOCAL_ATTESTATION_PATH></LOCAL_ATTESTATION_PATH>
+                        <PSW_INSTALL_BINARY_MATCH>sgx_inf_install.cmd</PSW_INSTALL_BINARY_MATCH>
+                        <SGX_FVT_ZIP>C:\Automation\BKC\Tools\SGXFunctionalValidationToolv.0.8.0.5.zip</SGX_FVT_ZIP>
+                        <SGX_FVT_BINARY>SGXFunctionalValidationTool.exe</SGX_FVT_BINARY>
+                        <SGX_FVT_PSW_VERIFY_CMD></SGX_FVT_PSW_VERIFY_CMD>
+                        <PSW_LOCAL_REPO_NAME></PSW_LOCAL_REPO_NAME>
+                        <PSW_LOCAL_REPO_PATH></PSW_LOCAL_REPO_PATH>
+                        <SGX_SDK_BINARY_MATCH></SGX_SDK_BINARY_MATCH>
+                        <SDK_ADD_ENVIRONMENT></SDK_ADD_ENVIRONMENT>
+                        <SGX_STREAM_APP_TEST_TIMEOUT_IN_SECS>21600</SGX_STREAM_APP_TEST_TIMEOUT_IN_SECS>
+                    </WINDOWS>
+                </SGX_APP>
+                <cycling>
+                    <warm_reboot>
+                        <number_of_cycles>50</number_of_cycles>
+                        <recovery_mode>True</recovery_mode>
+                    </warm_reboot>
+                    <warm_reboot_registration>
+                        <number_of_cycles>50</number_of_cycles>
+                        <recovery_mode>True</recovery_mode>
+                    </warm_reboot_registration>
+                    <ac_cycle>
+                        <number_of_cycles>50</number_of_cycles>
+                        <recovery_mode>True</recovery_mode>
+                    </ac_cycle>
+                    <ac_cycle_registration>
+                        <number_of_cycles>50</number_of_cycles>
+                        <recovery_mode>True</recovery_mode>
+                    </ac_cycle_registration>
+                    <dc_cycle>
+                        <number_of_cycles>50</number_of_cycles>
+                        <recovery_mode>True</recovery_mode>
+                    </dc_cycle>
+                    <dc_cycle_registration>
+                        <number_of_cycles>50</number_of_cycles>
+                        <recovery_mode>True</recovery_mode>
+                    </dc_cycle_registration>
+                    <ipmi_cycle_registration>
+                        <number_of_cycles>50</number_of_cycles>
+                        <recovery_mode>True</recovery_mode>
+                    </ipmi_cycle_registration>
+                    <ipmi_cycle>
+                        <number_of_cycles>50</number_of_cycles>
+                        <recovery_mode>True</recovery_mode>
+                    </ipmi_cycle>
+                </cycling>
+            </SGX>
+            <TBOOT>
+                <tboot_zip>tboot-1.9.12.tar.gz</tboot_zip>
+                <!--Rename the sinit file to SINIT.bin-->
+                <sinit_bin_file>C:\Automation\Tools\SPR\Linux\SINIT.bin</sinit_bin_file>
+                <cycling>
+                    <warm_reboot>
+                        <number_of_cycles>100</number_of_cycles>
+                        <recovery_mode>True</recovery_mode>
+                    </warm_reboot>
+                    <ac_cycle>
+                        <number_of_cycles>100</number_of_cycles>
+                        <recovery_mode>True</recovery_mode>
+                    </ac_cycle>
+                    <dc_cycle>
+                        <number_of_cycles>100</number_of_cycles>
+                        <recovery_mode>True</recovery_mode>
+                    </dc_cycle>
+                </cycling>
+            </TBOOT>
+            <TDX>
+				<LINUX>
+					<!-- AC cycle instead of warm reset from OS -->
+					<AC_RESET>False</AC_RESET>
+					<!-- restore BIOS knobs and apply TDX knobs over default settings when preparing test script -->
+					<RESET_KNOBS>False</RESET_KNOBS>
+					<!-- enable CMCI morphing; this should be set to False to bypass UCNA errors -->
+					<CMCI_MORPHING_ENABLE>True</CMCI_MORPHING_ENABLE>
+					<!-- if Directory Mode is enabled or not -->
+					<DIRECTORY_MODE_ENABLE>True</DIRECTORY_MODE_ENABLE>
+                    <!-- Volatile Memory Mode to use; should be 1LM or 2LM; 2LM is not supported with TDX on some
+                    products-->
+                    <LM_MODE>1LM</LM_MODE>
+					<!-- where TD guest user account -->
+					<TD_GUEST_USER>root</TD_GUEST_USER>
+					<!-- where TD guest user account password-->
+					<TD_GUEST_USER_PWD> </TD_GUEST_USER_PWD>
+					<!-- how many vCPU for TD guest, must be a whole number -->
+					<TD_GUEST_CORES>1</TD_GUEST_CORES>
+					<!-- how much memory for TD guest; format must be a whole number and a capital letter for size (M or G for MB or GB respectively) -->
+					<TD_GUEST_MEM>1G</TD_GUEST_MEM>
+					<!-- how many VMs to launch or create -->
+					<NUMBER_OF_VMS>3</NUMBER_OF_VMS>
+					<!-- time to wait for VM to boot in seconds -->
+                    <VM_BOOT_TIMEOUT>60</VM_BOOT_TIMEOUT>
+                    <!-- number of times to attempt to boot a VM before returning failure -->
+                    <NUM_VM_BOOT_ATTEMPTS>2</NUM_VM_BOOT_ATTEMPTS>
+					<!-- guest OS specs -->
+					<VM_OS>CENTOS</VM_OS>
+					<!-- location of the BKC package containing the SEAM update collateral -->
+					<SEAM_MODULE_PATH_HOST>C:/Automation/bkc/seam_module_1.0_v0.9_b120.zip</SEAM_MODULE_PATH_HOST>
+                    <SEAM_LOADER_UPDATE_PATH>C:/Automation/bkc/seam_loader_1.0_v0.9_b120.zip</SEAM_LOADER_UPDATE_PATH>
+                    <!-- if SMX is enabled; workaround for SEAM loader -->
+					<SMX_ENABLED>None</SMX_ENABLED>
+                    <!-- disable or enable DAM for QS -->
+					<DAM_ENABLED>None</DAM_ENABLED>
+                    <!-- disable or enable SEAM in BIOS -->
+					<BIOS_SEAMLDR_ENABLE>True</BIOS_SEAMLDR_ENABLE>
+                    <!-- attestation script location on the host OS -->
+					<TDX_ATTESTATION_STACK_LOCATION>C:/Automation/bkc/Tools/tdx-attestation-1.10.92.2.zip</TDX_ATTESTATION_STACK_LOCATION>
+					<E2E_SCRIPT_LOCATION>C:/Automation/bkc/Tools/e2e_scripts.tar.xz</E2E_SCRIPT_LOCATION>
+					<!-- SBX API  key from https://sbx.api.portal.trustedservices.intel.com/provisioning-certification -->
+					<SBX_API_KEY> </SBX_API_KEY>
+                    <!-- skip cleanup procedure -->
+					<SKIP_CLEANUP>False</SKIP_CLEANUP>
+					<!-- PCCS user password -->
+					<PCCS_PWD> </PCCS_PWD>
+                    <cycling>
+						<tdx_disable_cycle>50</tdx_disable_cycle>
+						<ipmi_cycles>50</ipmi_cycles>
+						<redfish_cycles>50</redfish_cycles>
+						<warm_reboot_cycles>250</warm_reboot_cycles>
+						<cold_reboot_cycles>250</cold_reboot_cycles>
+						<ac_reboot_cycles>250</ac_reboot_cycles>
+                        <td_guest_reboot_cycles>50</td_guest_reboot_cycles>
+					</cycling>
+				</LINUX>
+				<WINDOWS>
+					<!-- AC cycle instead of warm reset from OS -->
+					<AC_RESET>False</AC_RESET>
+					<!-- restore BIOS knobs and apply TDX knobs over default settings when preparing test script -->
+					<RESET_KNOBS>False</RESET_KNOBS>
+					<!-- enable CMCI morphing; this should be set to False to bypass UCNA errors -->
+					<CMCI_MORPHING_ENABLE>False</CMCI_MORPHING_ENABLE>
+					<!-- if Directory Mode is enabled or not -->
+					<DIRECTORY_MODE_ENABLE>False</DIRECTORY_MODE_ENABLE>
+                    <!-- Volatile Memory Mode to use; should be 1LM or 2LM; 2LM is not supported with TDX on some
+                    products-->
+                    <LM_MODE>1LM</LM_MODE>
+					<!-- where to save TDVM images on SUT -->
+					<TD_GUEST_IMAGE_DIR>c:\tdx\tdvm\images\</TD_GUEST_IMAGE_DIR>
+					<TD_GUEST_IMAGE_PATH_SUT_CENTOS>C:\CentOS_VM_backup\Virtual Machines</TD_GUEST_IMAGE_PATH_SUT_CENTOS>
+					<TD_GUEST_IMAGE_PATH_SUT_RHEL>C:\RHEL_VM_backup\Virtual Machines</TD_GUEST_IMAGE_PATH_SUT_RHEL>
+					<TD_GUEST_IMAGE_PATH_SUT_UBUNTU>C:\Ubuntu_VM_backup\Virtual Machines</TD_GUEST_IMAGE_PATH_SUT_UBUNTU>
+                    <LEGACY_GUEST_IMAGE_PATH_SUT_UBUNTU>C:\Ubuntu_Legacy_VM_backup\Virtual Machines</LEGACY_GUEST_IMAGE_PATH_SUT_UBUNTU>
+					<TD_GUEST_IMAGE_PATH_SUT_WINDOWS>C:\VM_backup\Virtual Machines</TD_GUEST_IMAGE_PATH_SUT_WINDOWS>
+                    <LEGACY_VM_IMAGE_PATH_SUT_WINDOWS>C:\VM_backup_Legacy\Virtual Machines</LEGACY_VM_IMAGE_PATH_SUT_WINDOWS>
+					<!-- is TD Guest image ready with MTC setup -->
+					<TD_GUEST_IMAGE_MTC_SETUP_ENABLED>False</TD_GUEST_IMAGE_MTC_SETUP_ENABLED>
+					<!-- if VM need Internal/External Network Connectivity (applicable only for Windows VM. Linux VMs always need NW connectivity) -->
+					<TD_GUEST_IMAGE_ENABLE_ETHERNET_ADAPTER>False</TD_GUEST_IMAGE_ENABLE_ETHERNET_ADAPTER>
+					<!-- ready made local image saved to host to copy to SUT, if using one -->
+					<TD_GUEST_IMAGE_PATH_HOST_CENTOS></TD_GUEST_IMAGE_PATH_HOST_CENTOS>
+					<TD_GUEST_IMAGE_PATH_HOST_RHEL></TD_GUEST_IMAGE_PATH_HOST_RHEL>
+					<TD_GUEST_IMAGE_PATH_HOST_UBUNTU></TD_GUEST_IMAGE_PATH_HOST_UBUNTU>
+					<TD_GUEST_IMAGE_PATH_HOST_WINDOWS></TD_GUEST_IMAGE_PATH_HOST_WINDOWS>
+                    <!-- serial path prefix for TD guest serial log to be saved -->
+					<TD_GUEST_USER>Administrator</TD_GUEST_USER>
+					<!-- where TD guest user account password-->
+					<TD_GUEST_USER_PWD> </TD_GUEST_USER_PWD>
+					<!-- how many vCPU for TD guest, must be a whole number -->
+					<TD_GUEST_CORES>1</TD_GUEST_CORES>
+					<!-- how much memory for TD guest; format must be a whole number and a capital letter for size (M or G for MB or GB respectively) -->
+					<TD_GUEST_MEM>1G</TD_GUEST_MEM>
+					<!-- how many VMs to launch or create -->
+					<NUMBER_OF_VMS>3</NUMBER_OF_VMS>
+					<!-- time to wait for VM to boot in seconds -->
+                    <VM_BOOT_TIMEOUT>90</VM_BOOT_TIMEOUT>
+                    <!-- number of times to attempt to boot a VM before returning failure -->
+                    <NUM_VM_BOOT_ATTEMPTS>2</NUM_VM_BOOT_ATTEMPTS>
+					<!-- guest OS specs -->
+					<VM_OS>WINDOWS</VM_OS>
+                    <!-- Gen 1 or Gen 2 vhd creation ; format must be a whole number -->
+					<TD_GUEST_VHD_GENERATION>2</TD_GUEST_VHD_GENERATION>
+                    <!-- base location for the custom tools to be copied in VM -->
+					<VM_TOOLS_BASE_LOC>C:\Automation</VM_TOOLS_BASE_LOC>
+					<cycling>
+						<tdx_disable_cycle>50</tdx_disable_cycle>
+                        <ipmi_cycles>50</ipmi_cycles>
+						<redfish_cycles>50</redfish_cycles>
+						<warm_reboot_cycles>250</warm_reboot_cycles>
+						<cold_reboot_cycles>250</cold_reboot_cycles>
+						<ac_reboot_cycles>250</ac_reboot_cycles>
+                        <td_guest_reboot_cycles>50</td_guest_reboot_cycles>
+					</cycling>
+                    <time_out>
+						<tdx_sgx_hydra_test_time>600</tdx_sgx_hydra_test_time>
+					</time_out>
+                </WINDOWS>
+			</TDX>
+			<SECURE_BOOT>
+			<!-- certificate blocks for Secure Boot testing, 1 tag per certificate type.  Multiple certificates of a type can be provided using a semicolon as a delimiter with the necessary signature guid if required -->
+				<PK>secure-boot-test-pk.cer</PK>
+				<KEK>MicCorKEKCA2011_2011-06-24.crt,77fa9abd-0359-4d32-bd60-28f4e78f784b</KEK>
+				<DB>MicCorUEFCA2011_2011-06-27.crt,77fa9abd-0359-4d32-bd60-28f4e78f784b;MicWinProPCA2011_2011-10-19.crt,77fa9abd-0359-4d32-bd60-28f4e78f784b</DB>
+			</SECURE_BOOT>
+			<mktme>
+				<windows>
+					<!-- AC cycle instead of warm reset from OS -->
+					<ac_reset>True</ac_reset>
+
+                    <!-- MKTMETool.efi tool location-->
+                    <mktme_tool_path_host>C:\Automation\bkc\tools\MKTMETool\MKTMETool.efi</mktme_tool_path_host>
+					<vm_guest_image>
+						<!-- linux & windows guest user name -->
+						<vm_guest_user>Administrator</vm_guest_user>
+						<!-- linux & windows guest user account password-->
+						<vm_guest_user_pwd></vm_guest_user_pwd>
+						<!-- time to wait for VM to boot in seconds -->
+						<vm_boot_time>120</vm_boot_time>
+						<!-- guest OS specs -->
+						<vm_os>WINDOWS</vm_os>
+						<!-- base location for the custom tools to be copied in VM -->
+						<vm_tools_base_loc>C:\Automation\Tools</vm_tools_base_loc>
+						<!-- where to save imported VM images on SUT -->
+						<vm_guest_image_dir>c:\mktmevm\images\</vm_guest_image_dir>
+						<exported_vm_guest_image_path_sut>C:\tmp\22438\Virtual Machines</exported_vm_guest_image_path_sut>
+						<exported_legacy_vm_image_path_sut>C:\tmp\22438\Virtual Machines</exported_legacy_vm_image_path_sut>
+					</vm_guest_image>
+				</windows>
+                <linux>
+                    <!-- MKTMETool.efi tool location-->
+                    <mktme_tool_path_host>C:\Automation\bkc\tools\MKTMETool\MKTMETool.efi</mktme_tool_path_host>
+                </linux>
+			</mktme>
+
+        <mprime>
+            <!-- configuration related mprime stress test tool -->
+            <running_time>60</running_time>
+        </mprime>
+		<stressng>
+			<!-- configuration related stress-ng stress test tool run time in seconds -->
+            <running_time>60</running_time>
+		</stressng>
+        <!-- configuration related to booting media device; Ex: UEFI INTEL SSDSC2KB960G8 BTYF9071006W960CGN  -->
+        <boot_media_device></boot_media_device>
+        <ntttcp>
+            <!-- configuration related ntttcp stress test tool -->
+            <running_time>60</running_time>
+        </ntttcp>
+        <iperf>
+            <!-- configuration related iperf stress test tool -->
+            <running_time>60</running_time>
+        </iperf>
+        <power_management>
+			<!-- number of minutes to run pmutils harasser tests -->
+			<pmutils_timeout>300</pmutils_timeout>
+		</power_management>
+    </security>
+
+    <virtualization>
+        <!-- proxy_server reference, valid values are "chain"/"iind"/"" -->
+		
+        <proxy_server>iind</proxy_server>
+        <proxy_server_vm>iind</proxy_server_vm>
+        <update_repo_files_for_centos>True</update_repo_files_for_centos>
+        <wait_for_vm_os_in_sec>1000</wait_for_vm_os_in_sec>
+        <enable_with_registered_mac_id>True</enable_with_registered_mac_id>
+        <ssh_tool_path>C:\\OpenSSh-Win64</ssh_tool_path>
+        <driver_tool_path>C:\\</driver_tool_path>
+        <number_of_linux_vm>1</number_of_linux_vm>
+        <number_of_windows_vm>1</number_of_windows_vm>
+        <!-- Provide the USB device name to be enumerated Ex: SanDisk, HP -->
+        <usb_device_name>HP</usb_device_name>
+        <hbm_bios_wa>False</hbm_bios_wa>
+        <template_result>True</template_result>
+        <machine_type>GNR</machine_type>
+        <linux>
+            <!-- Put the free MAC id which is registered in IT portal
+            example: <mac_address>52:54:00:83:CE:82,52:54:00:BA:84:11</mac_address>-->
+			<mac_address>00:15:5D:58:37:60,00:15:5D:58:37:61,00:15:5D:58:37:62,00:15:5D:58:37:63,00:15:5D:58:37:50,00:15:5D:58:37:51,00:15:5D:58:37:52,00:15:5D:58:37:53,00:15:5D:58:37:54,00:15:5D:58:37:55,00:15:5D:58:37:56,00:15:5D:58:37:57,00:15:5D:58:37:58,00:15:5D:58:37:59,00:15:5D:58:37:5A,00:15:5D:58:37:5B,00:15:5D:58:37:5C,00:15:5D:58:37:5D,00:15:5D:58:37:5E,00:15:5D:58:37:5F</mac_address>
+            
+			<mac_address_l2>aa:bb:cc:dd:ee:f1,aa:bb:cc:dd:ee:f2</mac_address_l2>
+            <!--mac_address_l2>aa:bb:cc:dd:ee:f1,aa:bb:cc:dd:ee:f2</mac_address_l2-->
+
+			<RHEL>
+				<ISO>
+					<memory_size>4096</memory_size>
+					<num_of_cpus>2</num_of_cpus>
+					<disk_space_in_gb>6</disk_space_in_gb>
+					<os_variant>8.2</os_variant>
+					<kernel_version>4.18</kernel_version>
+					<os_iso_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\RHEL-8-2-0-BaseOS-x86_64_vmware_unattend.iso</os_iso_location_on_host>
+                    <!--os_img_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\RHEL-8.5.0-20211013.2-x86_64-dvd1.img</os_img_location_on_host-->
+					<yum_repos_location_on_host>C:\Automation\BKC\Tools\RHEL_REPOS.zip</yum_repos_location_on_host>
+				</ISO>
+				<VM_Template>
+					<memory_size>4096</memory_size>
+					<num_of_cpus>2</num_of_cpus>
+					<disk_space_in_gb>6</disk_space_in_gb>
+					<os_variant>8.2</os_variant>
+					<kernel_version>4.18</kernel_version>
+					<template_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\rhel0.qcow2</template_location_on_host>
+				</VM_Template>
+            </RHEL>
+            <CENTOS>
+                <kickstart_file_name>centauto_ks.cfg</kickstart_file_name>
+                <ISO>
+					<memory_size>4096</memory_size>
+					<num_of_cpus>2</num_of_cpus>
+					<disk_space_in_gb>20</disk_space_in_gb>
+					<os_variant>8</os_variant>
+					<kernel_version>4.18</kernel_version>
+					<os_iso_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\CentOS-Linux-8-x86_64.iso</os_iso_location_on_host>
+                    <!--os_img_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\spr-bkc-pc-centos-stream-8-installer-8.8-5.img</os_img_location_on_host-->
+					<yum_repos_location_on_host>C:\Automation\BKC\Tools\RHEL_REPOS.zip</yum_repos_location_on_host>
+                </ISO>
+				<VM_Template>
+					<memory_size>4096</memory_size>
+					<num_of_cpus>2</num_of_cpus>
+					<disk_space_in_gb>6</disk_space_in_gb>
+					<os_variant>8.2</os_variant>
+					<kernel_version>4.18</kernel_version>
+					<template_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\centos0.qcow2</template_location_on_host>
+				</VM_Template>
+            </CENTOS>
+            <WINDOWS>
+				<ISO>
+					<memory_size>4096</memory_size>
+					<num_of_cpus>1</num_of_cpus>
+					<disk_space_in_gb>20</disk_space_in_gb>
+					<os_variant>2k19</os_variant>
+					<kernel_version>1</kernel_version>
+                    <os_iso_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\Windows-SERVER_OEMRET_x64FRE_en-us_crossos.iso</os_iso_location_on_host>
+					<yum_repos_location_on_host>C:\Automation\BKC\VM_DETAILS\WIN_REPOS</yum_repos_location_on_host>
+				</ISO>
+				<VM_Template>
+					<memory_size>4096</memory_size>
+					<num_of_cpus>2</num_of_cpus>
+					<disk_space_in_gb>6</disk_space_in_gb>
+					<os_variant>8.2</os_variant>
+					<kernel_version>4.18</kernel_version>
+					<template_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\windows0.qcow2</template_location_on_host>
+				</VM_Template>
+            </WINDOWS>
+        </linux>
+		<windows>
+		    <!--<mac_address>12:56:00:3b:21:12,12:57:00:3d:22:11</mac_address>-->
+            <mac_address>00:15:5D:58:37:60,00:15:5D:58:37:61,00:15:5D:58:37:62,00:15:5D:58:37:63,00:15:5D:58:37:50,00:15:5D:58:37:51,00:15:5D:58:37:52,00:15:5D:58:37:53,00:15:5D:58:37:54,00:15:5D:58:37:55,00:15:5D:58:37:56,00:15:5D:58:37:57,00:15:5D:58:37:58,00:15:5D:58:37:59,00:15:5D:58:37:5A,00:15:5D:58:37:5B,00:15:5D:58:37:5C,00:15:5D:58:37:5D,00:15:5D:58:37:5E,00:15:5D:58:37:5F</mac_address>
+            <mac_address_l2>aa:bb:cc:dd:ee:f1,aa:bb:cc:dd:ee:f2</mac_address_l2>
+            
+            <RHEL>
+				<ISO>
+                    <!--memory size in GB -->
+					<memory_size>4</memory_size>
+					<num_of_cpus>1</num_of_cpus>
+                    <!--Disk Size in GB-->
+					<disk_space_in_gb>30</disk_space_in_gb>
+					<os_variant>8.2</os_variant>
+					<kernel_version>4.18</kernel_version>
+                    <password>password</password>
+                    <user_name>root</user_name>
+					<os_iso_location_on_host>C:\Automation\BKC\Tools\rhel82_auto.iso</os_iso_location_on_host>
+                    <!--<mac_address>12:56:00:3b:21:12,12:57:00:3d:22:11</mac_address>-->
+					<yum_repos_location_on_host>C:\Automation\BKC\Tools\RHEL_REPOS.zip</yum_repos_location_on_host>
+				</ISO>
+				<VM_Template>
+					<memory_size>4</memory_size>
+					<num_of_cpus>1</num_of_cpus>
+					<disk_space_in_gb>6</disk_space_in_gb>
+					<os_variant>10</os_variant>
+					<kernel_version>1</kernel_version>
+					<template_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\rhel0.vhdx</template_location_on_host>
+					<yum_repos_location_on_host>C:\Automation\BKC\VM_DETAILS\WIN_REPOS</yum_repos_location_on_host>
+				</VM_Template>
+            </RHEL>
+            <RS5>
+				<ISO>
+					<memory_size>4</memory_size>
+					<num_of_cpus>1</num_of_cpus>
+					<disk_space_in_gb>30</disk_space_in_gb>
+					<os_variant>10</os_variant>
+					<kernel_version>1</kernel_version>
+					<os_iso_location_on_host11>C:\Automation\BKC\VM_DETAILS\IMAGE\Windows-SERVER_OEMRET_x64FRE_en-us_crossos.iso</os_iso_location_on_host11>
+					<yum_repos_location_on_host>C:\Automation\BKC\VM_DETAILS\WIN_REPOS</yum_repos_location_on_host>
+                    <os_iso_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\Windows-SERVER_OEMRET_x64FRE_en-us_crossos.iso</os_iso_location_on_host>
+				</ISO>
+				<VM_Template>
+					<memory_size>4</memory_size>
+					<num_of_cpus>1</num_of_cpus>
+					<disk_space_in_gb>6</disk_space_in_gb>
+					<os_variant>10</os_variant>
+					<kernel_version>1</kernel_version>
+					<template_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\win_gen_1.vhdx</template_location_on_host>
+					<yum_repos_location_on_host>C:\Automation\BKC\VM_DETAILS\WIN_REPOS</yum_repos_location_on_host>
+				</VM_Template>
+            </RS5>
+            <WINDOWS>
+				<ISO>
+					<memory_size>4</memory_size>
+					<num_of_cpus>2</num_of_cpus>
+					<disk_space_in_gb>20</disk_space_in_gb>
+					<os_variant>2k19</os_variant>
+					<kernel_version>1</kernel_version>
+                    <yum_repos_location_on_host>C:\Automation\BKC\VM_DETAILS\WIN_REPOS</yum_repos_location_on_host>
+                    <os_iso_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\Windows-SERVER_OEMRET_x64FRE_en-us_crossos.iso</os_iso_location_on_host>
+				</ISO>
+				<VM_Template>
+					<memory_size>4</memory_size>
+					<num_of_cpus>1</num_of_cpus>
+					<disk_space_in_gb>6</disk_space_in_gb>
+					<os_variant>10</os_variant>
+					<kernel_version>1</kernel_version>
+					<template_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\win_gen_1.vhdx</template_location_on_host>
+					<yum_repos_location_on_host>C:\Automation\BKC\VM_DETAILS\WIN_REPOS</yum_repos_location_on_host>
+				</VM_Template>
+            </WINDOWS>
+            <CENTOS>
+                <ISO>
+					<memory_size>4</memory_size>
+					<num_of_cpus>2</num_of_cpus>
+					<disk_space_in_gb>20</disk_space_in_gb>
+					<os_variant>8</os_variant>
+					<kernel_version>4.18</kernel_version>
+                    <os_iso_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\centos-8.4.2105-embargo-installer-202108161742.iso</os_iso_location_on_host>
+                    <yum_repos_location_on_host>C:\Automation\BKC\Tools\RHEL_REPOS.zip</yum_repos_location_on_host>
+ 				</ISO>
+				<VM_Template>
+					<memory_size>4</memory_size>
+					<num_of_cpus>1</num_of_cpus>
+					<disk_space_in_gb>6</disk_space_in_gb>
+					<os_variant>10</os_variant>
+					<kernel_version>1</kernel_version>
+					<template_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\centos0.vhdx</template_location_on_host>
+					<yum_repos_location_on_host>C:\Automation\BKC\VM_DETAILS\WIN_REPOS</yum_repos_location_on_host>
+				</VM_Template>
+            </CENTOS>
+        </windows>
+        <esxi>
+            <vcenter_ip>10.227.90.241</vcenter_ip>
+            <vcenter_username>Administrator@vsphere.local</vcenter_username>
+            <vcenter_password>Intel@123</vcenter_password>
+            <!-- Put the free MAC id which is registered in IT portal-->
+            <mac_address>00:15:5D:58:37:60,00:15:5D:58:37:61,00:15:5D:58:37:62,00:15:5D:58:37:63,00:15:5D:58:37:50,00:15:5D:58:37:51,00:15:5D:58:37:52,00:15:5D:58:37:53,00:15:5D:58:37:54,00:15:5D:58:37:55,00:15:5D:58:37:56,00:15:5D:58:37:57,00:15:5D:58:37:58,00:15:5D:58:37:59,00:15:5D:58:37:5A,00:15:5D:58:37:5B,00:15:5D:58:37:5C,00:15:5D:58:37:5D,00:15:5D:58:37:5E,00:15:5D:58:37:5F</mac_address>
+            <WINDOWS>
+                <ISO>
+                    <memory_size>4096</memory_size>
+					<num_of_cpus>2</num_of_cpus>
+					<disk_space_in_gb>20</disk_space_in_gb>
+					<esxi_guestos_id>windows2019srv-64</esxi_guestos_id>
+                    <esxi_guestos_pwrcli_id>windows2019srv_64Guest</esxi_guestos_pwrcli_id>
+					<os_variant>2k19</os_variant>
+					<kernel_version>4.18</kernel_version>
+					<os_iso_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\vmware-unattend-windows.iso</os_iso_location_on_host>
+                </ISO>
+				<VM_Template>
+					<memory_size>4</memory_size>
+					<num_of_cpus>1</num_of_cpus>
+					<disk_space_in_gb>6</disk_space_in_gb>
+					<os_variant>10</os_variant>
+					<kernel_version>1</kernel_version>
+					<template_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\vmware_windows_ovf\windows1.ovf</template_location_on_host>
+					<yum_repos_location_on_host>C:\Automation\BKC\VM_DETAILS\WIN_REPOS</yum_repos_location_on_host>
+				</VM_Template>
+            </WINDOWS>
+            <RHEL>
+                <ISO>
+                    <memory_size>4096</memory_size>
+					<num_of_cpus>2</num_of_cpus>
+					<disk_space_in_gb>20</disk_space_in_gb>
+					<esxi_guestos_id>rhel8_64Guest</esxi_guestos_id>
+                    <esxi_guestos_pwrcli_id>rhel8_64Guest</esxi_guestos_pwrcli_id>
+					<os_variant>8.2</os_variant>
+					<kernel_version>4.18</kernel_version>
+					<os_iso_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\vmware-unattend-rhel.iso</os_iso_location_on_host>
+                </ISO>
+				<VM_Template>
+					<memory_size>4</memory_size>
+					<num_of_cpus>1</num_of_cpus>
+					<disk_space_in_gb>6</disk_space_in_gb>
+					<os_variant>10</os_variant>
+					<kernel_version>1</kernel_version>
+					<template_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\vmware_rhel_ovf\rhel1.ovf</template_location_on_host>
+					<yum_repos_location_on_host>C:\Automation\BKC\VM_DETAILS\WIN_REPOS</yum_repos_location_on_host>
+				</VM_Template>
+            </RHEL>
+            <CENTOS>
+                <ISO>
+                    <memory_size>4096</memory_size>
+					<num_of_cpus>2</num_of_cpus>
+					<disk_space_in_gb>20</disk_space_in_gb>
+					<esxi_guestos_id>centos8_64Guest</esxi_guestos_id>
+                    <esxi_guestos_pwrcli_id>centos8_64Guest</esxi_guestos_pwrcli_id>
+					<os_variant>8</os_variant>
+					<kernel_version>4.18</kernel_version>
+					<os_iso_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\vmware-unattend-centos.iso</os_iso_location_on_host>
+                </ISO>
+				<VM_Template>
+					<memory_size>4</memory_size>
+					<num_of_cpus>1</num_of_cpus>
+					<disk_space_in_gb>6</disk_space_in_gb>
+					<os_variant>10</os_variant>
+					<kernel_version>1</kernel_version>
+					<template_location_on_host>C:\Automation\BKC\VM_DETAILS\IMAGE\vmware_centos_ovf\cent1.ovf</template_location_on_host>
+					<yum_repos_location_on_host>C:\Automation\BKC\VM_DETAILS\WIN_REPOS</yum_repos_location_on_host>
+				</VM_Template>
+            </CENTOS>
+        </esxi>
+    </virtualization>
+
+    <processor>
+        <CPU_INFO>
+            <SPR>
+                <QW0J>
+                   <!-- Below is Core Po1m value from QDF spec -->
+                   <core_max_turbo_frequency>3200</core_max_turbo_frequency>
+                   <!-- Below is Core P1n value from QDF spec -->
+                   <core_max_base_frequency>3200</core_max_base_frequency>
+                   <minimum_cpu_frequency>800</minimum_cpu_frequency>
+                   <logical_processors>112</logical_processors>
+                   <no_of_sockets>2</no_of_sockets>
+                   <no_of_cores>56</no_of_cores>
+                   <!-- specify cache size values in MiB -->
+                   <l2_cache_size>2</l2_cache_size>
+                   <l3_cache_size>52.5</l3_cache_size>
+                   <virtualization_data>VT-x</virtualization_data>
+                </QW0J>
+                <QW21>
+                    <!-- Below is Core Po1m value from QDF spec -->
+                    <core_max_turbo_frequency>2200</core_max_turbo_frequency>
+                    <!-- Below is Core P1n value from QDF spec -->
+                    <core_max_base_frequency>2200</core_max_base_frequency>
+                    <minimum_cpu_frequency>792</minimum_cpu_frequency>
+                    <logical_processors>112</logical_processors>
+                    <no_of_sockets>2</no_of_sockets>
+                    <no_of_cores>56</no_of_cores>
+                    <!-- specify cache size values in MiB -->
+                    <l2_cache_size>112</l2_cache_size>
+                    <l3_cache_size>150</l3_cache_size>
+                    <virtualization_data>VT-x</virtualization_data>
+                </QW21>
+            </SPR>
+            <ICX>
+                <!-- Below is Core Po1m value from QDF spec -->
+                <core_max_turbo_frequency>3200</core_max_turbo_frequency>
+                <!-- Below is Core P1n value from QDF spec -->
+                <core_max_base_frequency>2200</core_max_base_frequency>
+                <minimum_cpu_frequency>800</minimum_cpu_frequency>
+                <logical_processors>48</logical_processors>
+                <no_of_sockets>2</no_of_sockets>
+                <no_of_cores>24</no_of_cores>
+                <!-- specify cache size values in MiB -->
+                <l2_cache_size>30</l2_cache_size>
+                <l3_cache_size>36</l3_cache_size>
+                <virtualization>VT-x</virtualization>
+            </ICX>
+            <CPX>
+                <!-- Below is Core Po1m value from QDF spec -->
+                <core_max_turbo_frequency>3200</core_max_turbo_frequency>
+                <!-- Below is Core P1n value from QDF spec -->
+                <core_max_base_frequency>2200</core_max_base_frequency>
+                <minimum_cpu_frequency>800</minimum_cpu_frequency>
+                <logical_processors>48</logical_processors>
+                <no_of_sockets>2</no_of_sockets>
+                <no_of_cores>24</no_of_cores>
+                <!-- specify cache size values in MiB -->
+                <l2_cache_size>30</l2_cache_size>
+                <l3_cache_size>36</l3_cache_size>
+                <virtualization_data>VT-x</virtualization_data>
+            </CPX>
+            <CLX>
+                <!-- Below is Core Po1m value from QDF spec -->
+                <core_max_turbo_frequency>3200</core_max_turbo_frequency>
+                <!-- Below is Core P1n value from QDF spec -->
+                <core_max_base_frequency>2200</core_max_base_frequency>
+                <minimum_cpu_frequency>800</minimum_cpu_frequency>
+                <logical_processors>48</logical_processors>
+                <no_of_sockets>2</no_of_sockets>
+                <no_of_cores>24</no_of_cores>
+                <!-- specify cache size values in MiB -->
+                <l2_cache_size>30</l2_cache_size>
+                <l3_cache_size>36</l3_cache_size>
+                <virtualization_data>VT-x</virtualization_data>
+            </CLX>
+            <SKX>
+                <!-- Below is Core Po1m value from QDF spec -->
+                <core_max_turbo_frequency>3200</core_max_turbo_frequency>
+                <!-- Below is Core P1n value from QDF spec -->
+                <core_max_base_frequency>2200</core_max_base_frequency>
+                <minimum_cpu_frequency>800</minimum_cpu_frequency>
+                <logical_processors>48</logical_processors>
+                <no_of_sockets>2</no_of_sockets>
+                <no_of_cores>24</no_of_cores>
+                <!-- specify cache size values in MiB -->
+                <l2_cache_size>30</l2_cache_size>
+                <l3_cache_size>36</l3_cache_size>
+                <virtualization_data>VT-x</virtualization_data>
+            </SKX>
+        </CPU_INFO>
+        <burnin>
+            <!-- burnin test execute time in minutes -->
+            <burnin_test_execute_time>10</burnin_test_execute_time>
+        </burnin>
+    </processor>
+
+    <tools>
+		<!--Pre-requisite module needed to build the network drive on Distro-->
+		<required_pre_requisite_package>elfutils-libelf-devel</required_pre_requisite_package>
+		<!--Intel E810 Network Adapter Driver-->
+		<E810_network_adapter_driver_name>C:\Automation\E810_driver\ice-1.5.8.tar.gz</E810_network_adapter_driver_name>
+        <!-- DPDK file name -->
+        <dpdk_file_name>dpdk-21.11.tar.xz</dpdk_file_name>
+        <dpdk_patch_file_name>dpdk_dlb_v21.11_580ddf5793_diff.patch</dpdk_patch_file_name>
+        <vm_dpdk_file_name>dpdk-21.11.tar.xz</vm_dpdk_file_name>
+        <vm_dpdk_patch_file_name>dpdk_dlb_v21.11_580ddf5793_diff.patch</vm_dpdk_patch_file_name>
+        <!-- Ethernet controller name -->
+        <fortville_nic>Ethernet Controller XXV710</fortville_nic>
+
+        <!-- Ethernet Device Name -->
+        <columbiaville_nic>Ethernet Controller E810-C</columbiaville_nic>
+
+        <!-- Ethernet Device Name -->
+        <mellanox_nic>Mellanox ConnectX-6 Lx Adapter</mellanox_nic>
+
+        <!-- Ethernet Device Name -->
+        <gen5_nic>E810-C</gen5_nic>
+
+        <!-- RDT File name -->
+        <rdt_file_name>C:\Automation\BKC\Tools\eaglestream-bkc-rdt-4.1.0_v2.zip</rdt_file_name>
+
+         <!-- Mlc Stress tool path in host-->
+        <mlc_stress_file>C:\Automation\BKC\Tools\mlc_v3.7.zip</mlc_stress_file>
+
+        <!-- num iterations to apply stress -->
+        <mlc_iterations>5</mlc_iterations>
+
+        <!-- Kernel rpm file name -->
+        <kernel_rpm_dsa_file_name>kernel-spr-bkc-pc-devel-6.13-0.el8.x86_64.rpm</kernel_rpm_dsa_file_name>
+        <kernel_rpm_file_name>kernel-next-server-devel-5.12.0-2021.05.07_49.el8.x86_64.rpm</kernel_rpm_file_name>
+
+        <!-- VM Kernel rpm file name -->
+        <vm_kernel_rpm_dsa_file_name>kernel-spr-bkc-pc-devel-10.4-11.el8.x86_64.rpm</vm_kernel_rpm_dsa_file_name>
+        <vm_kernel_rpm_file_name>kernel-spr-bkc-pc-devel-10.4-11.el8.x86_64.rpm</vm_kernel_rpm_file_name>
+
+
+        <!-- QAT file name -->
+        <vm_qat_file_name>QAT20.L.2201.0.0-00028.tar.gz</vm_qat_file_name>
+        <qat_file_name>QAT20.L.2201.0.0-00028.tar.gz</qat_file_name>
+        <qat_file_name_esxi>VMW-esx-8.0.0-Intel-qat-2.1.0.37-1OEM.800.0.0.53620472.zip</qat_file_name_esxi>
+
+        <!-- VROC file name -->
+        <vroc_file_name>vroc_8.0.0.3394_windows_drivers_pc_releasepackage.zip</vroc_file_name>
+
+        <!-- ipmctl.efi file name-->
+        <ipmctl_efi_file_name>C:\Automation\BKC\Tools\ipmctl_efi.zip</ipmctl_efi_file_name>
+        <burnin_file_name_windows>burnintest_win_10Aug2022.zip</burnin_file_name_windows>
+        <!-- ras runner tool name-->
+        <runner_file_name>C:\Automation\BKC\Tools\runner.zip</runner_file_name>
+        <sgx_bin_file_name>sgx_linux_x64_sdk_2.17.100.3_autoinstall.bin</sgx_bin_file_name>
+        <sgx_repo_file_name>sgx_rpm_local_repo.tgz</sgx_repo_file_name>
+        <validation_runner>
+
+            <linux>C:\Automation\BKC\Tools\linux\validation_runner.zip</linux>
+
+            <windows>C:\Automation\BKC\Tools\windows\validation_runner.zip</windows>
+
+        </validation_runner>
+        <linpack_tool>
+            <no_of_time_to_execute>100000</no_of_time_to_execute>
+        </linpack_tool>
+        <intelssd>
+
+            <windows>Intel_SSD_DCT_3.0.26_Windows.zip</windows>
+
+        </intelssd>
+        <!-- spstool  file name-->
+        <sps>
+		    <path>C:\Automation\BKC\Tools\SPS_Tools_4.2.97.411.zip</path>
+		    <version>6.0.1.27</version>
+        </sps>
+
+        <solar>
+            <!-- Solar tool name -->
+            <linux>Solar-3.21.390.0-Linux.tar.gz</linux>
+
+            <windows>C:\Automation\BKC\Tools\windows\solar.zip</windows>
+
+        </solar>
+        <socwatch>
+            <linux>socwatch_chrome_linux_INTERNAL.tar.gz</linux>
+        </socwatch>
+        <dynamo>
+            <linux>C:\Automation\BKC\Tools\linux\dynamo.tar</linux>
+        </dynamo>
+
+        <iometer_tool_config_file>iometer_configfile.icf</iometer_tool_config_file>
+        <iometer_tool_configfile>iometer_configfile.icf</iometer_tool_configfile>
+        <!-- HQM file name -->
+        <hqm_file_name>release_ver_7.7.0_v3.zip</hqm_file_name>
+        <vm_hqm_file_name>release_ver_7.7.0_v3.zip</vm_hqm_file_name>
+
+        <!-- ESXI DLB Driver File Name -->
+        <dlb_file_name_esxi>dlb-0.9.4.56.zip</dlb_file_name_esxi>
+		<!-- Vcenter esxi file name -->
+        <vcenter_esxi_file_name>VCSA-all-8.0.0.zip</vcenter_esxi_file_name>
+
+         <!-- Vcenter json esxi file name -->
+        <vcenter_json_file_name>embedded_vCSA_on_ESXi.json</vcenter_json_file_name>
+
+        <!-- idx file name -->
+        <idx_file_name>idxd-config-accel-config-v3.4.1.zip</idx_file_name>
+        <vm_idx_file_name>idxd-config-accel-config-v3.4.1.zip</vm_idx_file_name>
+
+        <!-- spr file name -->
+        <spr_file_name>DSA_spr2.zip</spr_file_name>
+
+        <!-- nvme file name -->
+		<nvme_file_name>intel-nvme-vmd-en_2.0.0.1146-1OEM.700.1.0.15843807_16259168-package.zip</nvme_file_name>
+
+        <!-- Intel Optane Pmem Mgmt file name, please put the name with underscore-->
+        <intel_optane_pmem_mgmt_file_name>cr_mgmt_03.00.00.0329_centos_8.2.zip</intel_optane_pmem_mgmt_file_name>
+
+        <vroc_tool>
+
+            <linux>C:\Automation\BKC\Tools\linux\vroc.zip</linux>
+
+            <windows>C:\Automation\BKC\Tools\windows\vroc.zip</windows>
+
+        </vroc_tool>
+        <!-- accel config tool -->
+        <accel_tool_path>idxd-config-dsa2.zip</accel_tool_path>
+
+        <ptu>
+
+            <windows>C:\Automation\BKC\Tools\windows\Intel_Power_Thermal_Utility.zip</windows>
+
+        </ptu>
+        <xmlcli_tool_name>xmlcli_1_5_8.zip</xmlcli_tool_name>
+
+    </tools>
+
+    <usb>
+        <device>
+              <type>Mass Storage</type>
+              <bcd>2.10</bcd>
+              <bcd_mouse>2.00</bcd_mouse>
+              <bcd_keyboard>1.10</bcd_keyboard>
+              <bcd_usb_key>2.10</bcd_usb_key>
+              <bcd_hub>3.10</bcd_hub>
+              <bcd_hdd>2.00</bcd_hdd>
+              <bcd_hdd_centos>2.10</bcd_hdd_centos>
+              <hdd_model_number>WDC WD10SDRW-11A0XS0</hdd_model_number>
+              <hdd_serial_number>WD-WXK2AC0AAXLL</hdd_serial_number>
+              <hdd_device_name>Western Digital Technologies, Inc.</hdd_device_name>
+        </device>
+        <loopback_device>
+			<loopback_driver>usb3loopdriver_1.2.3.zip</loopback_driver>
+			<loopback_console>USB3Console_1.0.1005.zip</loopback_console>
+		</loopback_device>
+    </usb>
+	<!-- Update the local path of OS and software packages in the below tags -->
+    <os_installation>
+        <win>
+            <os_pkg_path>C:\os_package\WIN2022.20344_FRE_IA-64_EGS-SRV-WIN2022-21.35.6.6F.wim</os_pkg_path>
+            <sft_pkg_path>None</sft_pkg_path>
+            <atf_iso_path>None</atf_iso_path>
+            <cfg_file_name>None</cfg_file_name>
+        </win>
+        <rhel>
+			<os_pkg_path>C:\os_package\rhel-8.4.0-20210503.1-x86_64-dvd1_auto_v3_FRE_IA-64_EGS-SRV-RHEL-21.38.3.161B.zip</os_pkg_path>
+			<sft_pkg_path>C:\os_package\EGS-SRV-RHEL-21.38.3.161B_SWpackage.zip</sft_pkg_path>
+            <cfg_file_name>rh8.4-uefi-raid.cfg</cfg_file_name>
+            <atf_iso_path>None</atf_iso_path>
+        </rhel>
+        <centos>
+            <os_pkg_path>None</os_pkg_path>
+            <sft_pkg_path>None</sft_pkg_path>
+            <atf_iso_path>https://ubit-artifactory-ba.intel.com/artifactory/dcg-dea-srvplat-local/Automation_Tools/SPR/CentOS_8_4_v3.iso</atf_iso_path>
+            <cfg_file_name>None</cfg_file_name>
+        </centos>
+    </os_installation>
+	<!--Sandstone container version-->
+	<sandstone_test_version_number>93</sandstone_test_version_number>
+	<!--Sandstone reset cycle-->
+    <sandstone_test_reset_number>20</sandstone_test_reset_number>
+
+    <!--Keysight card AC cycle-->
+    <provider>
+        <ac>
+            <driver>
+				<pdu brand="raritan" model="px-5052R">
+                <ip>10.190.177.25</ip>
+                <port>22</port>
+                <username>admin</username>
+                <password>intel@123</password>
+                <timeout>5</timeout>
+                <outlets>
+                    <outlet>4</outlet>
+                </outlets>
+				</pdu>
+            </driver>
+            <timeout>
+                <power_on>5</power_on>
+                <power_off>5</power_off>
+            </timeout>
+        </ac>
+    </provider>
+    <!--Telemetry configuration -->
+    <telemetry>
+        <start_telemetry_collector>False</start_telemetry_collector>
+    </telemetry>
+	<upi_telemetry>
+        <collect_upi_telemetry_flag>False</collect_upi_telemetry_flag>
+        <upi_telemetry_csv_path>c:\\Temp</upi_telemetry_csv_path>
+    </upi_telemetry>
+    <sql_powerbi_config>
+        <start_sql_connection>False</start_sql_connection>
+        <subsystem_name>HSIO</subsystem_name>
+        <mysql_host>maria3071-lb-pg-in.dbaas.intel.com</mysql_host>
+        <mysql_user>dtaf_automation</mysql_user>
+        <mysql_pwd>Automation123</mysql_pwd>
+        <mysql_db_name>DTAF_Analytics</mysql_db_name>
+        <mysql_table_name>EXECUTION_TABLE</mysql_table_name>
+    </sql_powerbi_config>
+    <RDT>
+        <script_path>/root/npl_workload_scripts-scripts/rdt-perf-val/cdp</script_path>
+    </RDT>
+    <io_telemetry>
+        <collect_io_telemetry_flag>False</collect_io_telemetry_flag>
+        <io_telemetry_csv_path>c:\\Temp</io_telemetry_csv_path>
+    </io_telemetry>
+    <upi_telemetry>
+        <collect_upi_telemetry_flag>False</collect_upi_telemetry_flag>
+        <upi_telemetry_csv_path>c:\\Temp</upi_telemetry_csv_path>
+    </upi_telemetry>
+	<!-- Process configuration -->
+	<host_process>
+		<terminate_list>OpenIPC_x64.exe</terminate_list>
+	</host_process>
+    <accelerator>
+        #refer the readme to update repo name and access token in src/virtualization/tests/dsa
+        <repo_name>https://github.com/intel-sandbox/pv-dsa-iax-bkc-tests.git</repo_name>
+        <access_token>None</access_token>
+        <version>3.4.1+</version>
+        <dsa_device_count>8</dsa_device_count>
+    </accelerator>
+
+    <saf>
+        <saf_blob_url>https://ubit-artifactory-ba.intel.com/artifactory/owr-repos/submissions/saf_blob</saf_blob_url>
+        <saf_blob_file_path>saf_blob_files_ww27_v1/saf_blob_files_ww27.zip</saf_blob_file_path>
+        <saf_app_url>https://ubit-artifactory-ba.intel.com/artifactory/one-windows-local/Submissions/saf</saf_app_url>
+        <saf_app_file_path>in_field_scan_app_2.0.1_v1/in_field_scan_app_2.0.1.zip</saf_app_file_path>
+        <saf_app_name>in_field_scan_app</saf_app_name>
+    </saf>
+
+	<ssdfw>
+	    <serial_number>SSDPF2KX038TZ</serial_number>
+        <vm_artifactory_link>https://ubit-artifactory-ba.intel.com/artifactory/dcg-dea-srvplat-local/Automation_Tools/WHT/wht_tool_info.xml</vm_artifactory_link>
+		<fio_cmd>fio --filename=/dev/{} --ioengine=libaio --rw=randrw --bs=4k --iodepth=256 --direct=1 --numjobs=4 --name=iops-test-job --time_based --group_reporting</fio_cmd>
+		<drive_letter>J</drive_letter>
+		<win_vm_name>CPUVM</win_vm_name>
+		<iometer_tool_path>iometer_tool.zip</iometer_tool_path>
+	</ssdfw>
+    <iperf_tool>C:\Automation\\tools\iperf-3.1.3-win64.zip</iperf_tool>
+	<interop>
+		<!-- workload_run_time - Time required for workload to run -->
+		<override_workload_runtime>False</override_workload_runtime>
+		<workload_runtime>300</workload_runtime>
+        <!-- Port Number of VM -->
+	    <port_number_vm>2002</port_number_vm>
+		<fisher_port_number>1900</fisher_port_number>
+        <error_string>
+            <error_str_1>ERROR</error_str_1>
+			<error_str_2>Error in running DLB Test</error_str_2>
+			<error_str_3>Error in running QAT Test</error_str_3>
+			<error_str_4>IAX workload Failed</error_str_4>
+		</error_string>
+		<!-- cpu stress enabled/disabled -->
+		<cpu_stress_enabled>True</cpu_stress_enabled> <!-- True/False -->
+		<!-- memory stress enabled/disabled -->
+		<memory_stress_enabled>True</memory_stress_enabled> <!-- True/False -->
+		<!-- Network traffic enabled/disabled -->
+		<network_enabled>True</network_enabled> <!-- True/False -->
+		<!-- Storage enabled/disabled -->
+		<storage_enabled>True</storage_enabled> <!-- True/False -->
+		<!-- Qat enabled/disabled -->
+		<qat_enabled>True</qat_enabled> <!-- True/False -->
+		<!-- DLB enabled/disabled -->
+		<dlb_enabled>True</dlb_enabled> <!-- True/False -->
+		<!-- DSA enabled/disabled -->
+		<dsa_enabled>True</dsa_enabled> <!-- True/False -->
+		<!-- IAA enabled/disabled -->
+		<iaa_enabled>True</iaa_enabled> <!-- True/False -->
+		<!-- CPS enabled/disabled -->
+		<cps_enabled>True</cps_enabled> <!-- True/False -->
+		<!--CXL enabled/disabled -->
+		<cxl_enabled>True</cxl_enabled> <!-- True/False -->
+		<!-- SGX enabled/disabled -->
+		<sgx_enabled>True</sgx_enabled> <!-- True/False -->
+		<!-- TDX enabled/disabled -->
+		<tdx_enabled>True</tdx_enabled> <!-- True/False -->
+		<!-- TMUL enabled/disabled -->
+		<tmul_enabled>True</tmul_enabled> <!-- True/False -->
+		<!-- RAS enabled/disabled -->
+		<ras_enabled>True</ras_enabled> <!-- True/False -->
+		<!-- Power Management enabled/disabled -->
+		<pm_enabled>True</pm_enabled> <!-- True/False -->
+		<!-- SAF enabled/disabled -->
+		<saf_enabled>True</saf_enabled> <!-- True/False -->
+		<!-- Seamless enabled/disabled -->
+		<seamless_enabled>True</seamless_enabled> <!-- True/False -->
+		<!-- URAM Management enabled/disabled -->
+		<uram_enabled>True</uram_enabled> <!-- True/False -->
+		<vm_memory_size>8192</vm_memory_size>
+
+
+        <!-- network_traffic_iperf -->
+        <nic_interface_name_sut>ens1f1</nic_interface_name_sut>
+        <nic_interface_name_peer>ens1f1</nic_interface_name_peer>
+        <static_ip_sut>141.41.41.10/24</static_ip_sut>
+        <static_ip_peer>141.41.41.20/24</static_ip_peer>
+        <duration_iperf_op>3</duration_iperf_op> <!-- seconds -->
+        <parallel_thread_count>5</parallel_thread_count>
+
+        <!-- peer details -->
+        <peer_host_name>10.190.177.176</peer_host_name>
+        <peer_user_name>root</peer_user_name>
+        <peer_password>password</peer_password>
+
+        <!--LTSSM -->
+        <random_cycles>3</random_cycles>
+        <bus_value_of_the_PCIe_device_width_speed>[0xb8,8,8]</bus_value_of_the_PCIe_device_width_speed>
+        <!-- pm harasser test -->
+        <pmutil_snoozetime>0.01</pmutil_snoozetime> <!-- seconds -->
+
+
+
+		<!-- system reboot count -->
+		<system_reboot_cycles>2</system_reboot_cycles>
+
+		<!-- NVME storage device name -->
+		<storage_device_name>nvme0n1</storage_device_name>
+
+
+        <!-- pm harasser test -->
+        <pmutil_snoozetime>0.01</pmutil_snoozetime> <!-- seconds -->
+
+
+
+
+		<!-- Bond static_ip -->
+		<bond_static_ip>135.35.5.2/24</bond_static_ip>
+
+		<!-- slave nic interface -->
+		<slave1_nic_interface>ens2f0</slave1_nic_interface>
+		<slave2_nic_interface>ens2f1</slave2_nic_interface>
+
+		<!-- system reboot count -->
+		<system_reboot_cycles>2</system_reboot_cycles>
+
+		<!-- NVME storage device name -->
+		<storage_device_name>nvme0n1</storage_device_name>
+
+
+		<!-- pcie gen3 details -->
+		<gen3_present>yes</gen3_present> <!-- yes/no -->
+		<gen3_bdf_values>04:00.0</gen3_bdf_values>
+		<gen3_type>storage</gen3_type> <!-- network / storage -->
+		<gen3_storage_device_name>nvme0n1</gen3_storage_device_name> <!-- NA if not storage not present -->
+
+		<!-- pcie gen4 details -->
+		<gen4_present>yes</gen4_present> <!-- yes/no -->
+		<gen4_bdf_values>27:0.0</gen4_bdf_values>
+		<gen4_type>network</gen4_type> <!-- network / storage -->
+		<gen4_storage_device_name>NA</gen4_storage_device_name> <!-- NA if not storage not present -->
+
+		<!-- pcie gen5 details -->
+		<gen5_present>no</gen5_present> <!-- yes/no -->
+		<gen5_bdf_values>27:0.0</gen5_bdf_values>
+		<gen5_type>network</gen5_type> <!-- network / storage -->
+		<gen5_storage_device_name>NA</gen5_storage_device_name> <!-- NA if not storage not present -->
+
+		<!-- network_traffic_gen3,4,5 -->
+        <gen_nic_interface_name_sut>ens1f0,ens1f1</gen_nic_interface_name_sut> <!-- gen3,4,5 separated by ; NA if gen not present-->
+        <gen_nic_interface_name_peer>ens1f0,ens1f1</gen_nic_interface_name_peer> <!-- gen3,4,5 separated by ; NA if gen not present-->
+        <gen_static_ip_sut>141.41.41.10/24,141.41.41.30/24</gen_static_ip_sut> <!-- gen3,4,5 separated by ; NA if gen not present-->
+        <gen_static_ip_peer>141.41.41.20/24,141.41.41.40/24</gen_static_ip_peer> <!-- gen3,4,5 separated by ; NA if gen not present-->
+		<!-- pm harasser test -->
+        <pmutil_snoozetime>0.01</pmutil_snoozetime> <!-- seconds -->
+		<qat_config_script>create_gen4_config.py</qat_config_script><!-- qat config file update py script -->
+		<!-- accel-random scripts for DSA/IAA -->
+		<accel_random_scripts>accel-random-config-and-test-main.zip</accel_random_scripts>
+        <pm_utility>pm_utility-master.zip</pm_utility>
+
+    </interop>
+
+    <ras>
+        <bios_config>True</bios_config>
+        <capsule_update>True</capsule_update>
+        <error_einj_flag>True</error_einj_flag>
+    </ras>
+    <pmem>
+        <ipmctl_tool_path_centos_zip>C:\Artifactory\cr_mgmt_03.00.00.0423-centos-stream8.zip</ipmctl_tool_path_centos_zip>
+        <ipmctl_tool_path_windows_zip>C:\Automation\tools\PMEM_FW\cr_mgmt_03.00.00.0431-windows.zip</ipmctl_tool_path_windows_zip>
+        <nvdimmutil_tool_path_windows_zip>C:\Artifactory\intel_persistent_memory_bringup_Fe_20279_201209.zip</nvdimmutil_tool_path_windows_zip>
+        <windows_sut_root_path>C:\\Tools\\PMEM</windows_sut_root_path>
+        <ipmctl_tool_file>IntelOptanePMemMgmt_</ipmctl_tool_file>
+        <ezfio_tool_path>C:\Artifactory\ezfio-master.zip</ezfio_tool_path>
+    </pmem>
+    <winvm>
+        <win_vm_name>CPUVM</win_vm_name>
+    </winvm>
+    <dsa>
+        <dsa_tool_file_path>C:\Artifactory\accel-random-config-and-test-main.zip</dsa_tool_file_path>
+        <sut_path_linux>/root/</sut_path_linux>
+        <dsa_file_name_pmem>accel-random-config-and-test-main</dsa_file_name_pmem>
+        <dsa_timeout>43200</dsa_timeout>
+    </dsa>
+    <pm>
+        <ptu_lin_tool_file_path>C:\Automation\tools\637673_Unified_Server_Intel_PTU_Rev3p4.tar.gz.gz</ptu_lin_tool_file_path>
+        <ptu_win_tool_file_path>C:\Automation\tools\PTU.zip</ptu_win_tool_file_path>
+        <socwatch_lin_tool_file_path>C:\Automation\tools\socwatch_chrome_linux_INTERNAL_v2021.3_x86_64.tar.gz</socwatch_lin_tool_file_path>
+        <socwatch_win_tool_file_path>C:\Automation\tools\socwatch_windows_INTERNAL_v2021.3.zip</socwatch_win_tool_file_path>
+    </pm>
+
+</content>
