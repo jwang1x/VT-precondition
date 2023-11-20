@@ -135,12 +135,16 @@ class Content():
         self.python_pip_module_windows = Etree.get_node_value(attrib='auto/python/python_pip_module_wind')
         # auto-poc
         self.auto_poc_cent = Etree.get_node_value(attrib='auto/auto-poc/linux')
+        self.virtualization_inband_cent = Etree.get_node_value(attrib='auto/auto-poc/virtualization_inband_cent')
         self.auto_poc_wind = Etree.get_node_value(attrib='auto/auto-poc/windows')
         # nuc env
         self.environment_variable_bat = Etree.get_node_value(attrib='auto/nuc/environment_variable_bat')
         self.vmware_powercli = Etree.get_node_value(attrib='auto/nuc/vmware_powercli')
         self.python_pip_modules = Etree.get_node_value(attrib='auto/nuc/python_pip_modules')
-
+        # sut centos
+        # self.iproute = Etree.get_node_value(attrib='auto/centos/iproute')
+        self.vfio_pci_bind = Etree.get_node_value(attrib='auto/centos/vfio_pci_bind')
+        self.ovmf_cent = Etree.get_node_value(attrib='auto/centos/ovmf_cent')
         """
         stress tools tag
         """
@@ -150,6 +154,9 @@ class Content():
         vms tag
         """
         self.vm_refresh_vm = Etree.get_node_value(attrib='vm/refresh_vm')
+        # centos vm
+        self.vm_source_file_cent = Etree.dict_walkData(attrib='vm/centos')
+        self.vm_register_cent = Etree.dict_walkData(attrib='vm/centos/regirster_vm')
         # windows vm
         self.vm_source_file_wind = Etree.dict_walkData(attrib='vm/windows')
         self.vm_register_wind = Etree.dict_walkData(attrib='vm/windows/regirster_vm')
