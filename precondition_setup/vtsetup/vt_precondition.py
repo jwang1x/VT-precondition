@@ -17,10 +17,10 @@ def pre_auto(sut, my_os):
     nuc = Nuc(sut=sut)
     nuc.main()
 
-    # if 'linux' in sut.default_os.lower():
-    #     setup = Kvm(sut=sut)
-    #     setup.main()
-    #
+    if 'linux' in sut.default_os.lower():
+        setup = Kvm(sut=sut)
+        setup.main()
+
     if 'windows' in sut.default_os.lower():
         setup = Hyper_V(sut=sut)
         setup.main()

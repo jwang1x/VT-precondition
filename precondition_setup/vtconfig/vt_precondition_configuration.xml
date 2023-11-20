@@ -7,29 +7,34 @@
 			<windows>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/7.2_xmlcli_windows_linux_esxi_Python.zip,xmlcli_windows_linux_esxi_Python.zip</windows>
 			<esxi>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/7.2_xmlcli_windows_linux_esxi_Python.zip,xmlcli_windows_linux_esxi_Python.zip</esxi>
 		</xmlcli>
-		<iproute>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Linux/iproute2-next-scalable-bkc-6.2.zip,iproute2-next-scalable-bkc-6.2.zip</iproute>
 		<python>
-			<python_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Linux/Python-3.10.10.tgz,Python-3.10.10.tgz</python_cent>
+			<python_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Linux/Python-3.10.10.tgz,Python3.tgz</python_cent>
 			<python_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/env/sut/windows/python-3.8.10-amd64.exe,python38.exe</python_wind>
 			<python_pip_module_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Windows/pip_paramiko_w.zip,pip_paramiko_w.zip</python_pip_module_wind>
 		</python>
 		<auto-poc>
 			<windows>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/auto-poc.zip,auto-poc.zip</windows>
 			<linux>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/auto-poc.zip,auto-poc.zip</linux>
+			<virtualization_inband_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/virtualization_inband.zip,virtualization_inband.zip</virtualization_inband_cent>
 		</auto-poc>
 		<nuc>
 			<environment_variable_bat>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/env_setup.bat,env_setup.bat</environment_variable_bat>
 			<vmware_powercli>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Esxi/VMware-PowerCLI.zip,VMware-PowerCLI.zip</vmware_powercli>
 			<python_pip_modules>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Windows/pip_modules.zip,pip_modules.zip</python_pip_modules>
 		</nuc>
+		<centos>
+			<iproute>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Linux/iproute2-next-scalable-bkc-6.2.zip,iproute2-next-scalable-bkc-6.2.zip</iproute>
+			<vfio_pci_bind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/vfio-pci-bind.sh,vfio-pci-bind.sh</vfio_pci_bind>
+			<ovmf_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/OVMF.fd,OVMF.fd</ovmf_cent>
+		</centos>
 	</auto>
 	<stress_tools>
 		<!--note>ioworkloadtools</note-->
 		<kvm_unit_tests_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Linux/kvm-unit-tests-master.tar,kvm-unit-tests-master.tar</kvm_unit_tests_cent>
 		<cmdline_config_80_workload>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Linux/cmdline_config_80_workload.txt,cmdline_config_80_workload.txt</cmdline_config_80_workload>
 		
-		<mlc_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Esxi/mlc_v3.9a.tgz,mlc_v3.9a.tgz</mlc_wind>
-		<mlc_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Esxi/mlc_v3.9a.tgz,mlc_v3.9a.tgz</mlc_cent>
+		<mlc_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Esxi/mlc_v3.9a.tgz,mlc_wind.tgz</mlc_wind>
+		<mlc_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Esxi/mlc_v3.9a.tgz,mlc_cent.tgz</mlc_cent>
 		
 		<iperf3_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Linux/iperf3_win.zip,iperf3_win.zip</iperf3_wind>
 		
@@ -41,7 +46,7 @@
 		
 		<ipmitool_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/IPMIToolWin.zip</ipmitool_wind>
 				
-		<vtdchain>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/vtdchain_tool.zip,vtdchain_tool.zip</vtdchain>
+		<vtdchain_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/vtdchain_tool.zip,vtdchain_tool.zip</vtdchain_cent>
 		
 		<!--note>sgx tools</note-->
 		<sgx_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/SGX.zip,SGX.zip</sgx_wind>
@@ -58,7 +63,7 @@
 		<dlb_esxi>https://ubit-artifactory-ba.intel.com/artifactory/one-windows-local/Submissions/dlb_esxi/1.5.0.82-gnr-U1-Alpha/dlb-gnr-1.5.0.82-U1-alpha.zip,dlb-gnr.zip</dlb_esxi>
 
 		<dsa_iaa_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/idxd-config-dsa2.zip,idxd-config-dsa2.zip</dsa_iaa_cent>
-		<accel_random_config_and_test>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/accel-random-config-and-test-dsa2_230915.zip,accel-test.zip</accel_random_config_and_test>
+		<accel_random_config_and_test_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/accel-random-config-and-test-dsa2_230915.zip,accel-test.zip</accel_random_config_and_test_cent>
 		<dsa_iaa_esxi>https://ubit-artifactory-ba.intel.com/artifactory/one-windows-local/Submissions/iads_esxi/0.14.0.80-gnr_v3/iads-gnr-0.14.0.80_v3.zip,iads-gnr.zip</dsa_iaa_esxi>
 
 		<!--note></note-->
@@ -71,16 +76,21 @@
 	
 	<vm>
 		<refresh_vm>True</refresh_vm>
-		<linux>
-			<centos_arti_iso>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/gnr-po-bkc-centos-stream-8-installer-minimal-1.4.2-11_kvm_unattend.iso,gnr-po-bkc-centos-stream-1.4.2-11_kvm_unattend.iso</centos_arti_iso>
-			<windows_arti_iso>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/20348.768_14June2022_SERVER_EVAL_x64FRE_en-us_kvm_hyperv_unattend.iso,20348.768_14June2022_SERVER_EVAL_x64FRE_en-us_kvm_hyperv_unattend.iso</windows_arti_iso>
-			<centos_arti_img>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/gnr-bkc-centos-stream-9-coreserver.img.xz,gnr-bkc-centos-stream-9-coreserver.img.xz</centos_arti_img>
-			<spr_centos_arti_img>https://ubit-artifactory-or.intel.com/artifactory/linuxbkc-or-local/linux-stack-bkc-spr/2022ww42/internal-images/spr-bkc-pc-centos-stream-8-coreserver-12.7-15.img.xz,spr-bkc-pc-centos-stream-8-coreserver-12.7-15.img.xz</spr_centos_arti_img>
-			<windows_arti_img>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/windows0.img.xz,windows0.img.xz</windows_arti_img>
-			<rhel_arti_template>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/rhel0.zip,rhel0.zip</rhel_arti_template>
-			<centos_arti_template>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/centos0.zip,centos0.zip</centos_arti_template>
-			<windows_arti_template>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/windows0.zip,windows0.zip</windows_arti_template>
-		</linux>
+		<centos>
+<!--			<centos_arti_iso>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/gnr-po-bkc-centos-stream-8-installer-minimal-1.4.2-11_kvm_unattend.iso,gnr-po-bkc-centos-stream-1.4.2-11_kvm_unattend.iso</centos_arti_iso>-->
+<!--			<windows_arti_iso>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/20348.768_14June2022_SERVER_EVAL_x64FRE_en-us_kvm_hyperv_unattend.iso,20348.768_14June2022_SERVER_EVAL_x64FRE_en-us_kvm_hyperv_unattend.iso</windows_arti_iso>-->
+			<centos_arti_img>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/gnr-bkc-centos-stream-9-coreserver.img.xz,cent0.img.xz</centos_arti_img>
+			<windows_arti_img>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/windows0.img.xz,wind0.img.xz</windows_arti_img>
+			<rhel_arti_img>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/rhel9_5.14.0-70.22.1.el9_0.x86_64.qcow2.xz,rhel0.qcow2.xz</rhel_arti_img>
+			<regirster_vm>
+				<rhel1>/home/BKCPkg/domains/virtualization/imgs/rhel0.qcow2</rhel1>
+				<rhel2>/home/BKCPkg/domains/virtualization/imgs/rhel0.qcow2</rhel2>
+				<windows1>/home/BKCPkg/domains/virtualization/imgs/wind0.qcow2</windows1>
+				<windows2>/home/BKCPkg/domains/virtualization/imgs/wind0.qcow2</windows2>
+				<centos1>/home/BKCPkg/domains/virtualization/imgs/cent0.qcow2</centos1>
+				<centos2>/home/BKCPkg/domains/virtualization/imgs/cent0.qcow2</centos2>
+			</regirster_vm>
+		</centos>
 		<windows>
 			<centos_arti_iso>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/windows/6.2.0-gnr.bkc.6.2.10.6.34.x86_64_gnr_po_hyperv_unattend.iso,windows-unattend-centos.iso</centos_arti_iso>
 			<windows_arti_iso>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/linux/20348.768_14June2022_SERVER_EVAL_x64FRE_en-us_kvm_hyperv_unattend.iso,windows-unattend-windows.iso</windows_arti_iso>
