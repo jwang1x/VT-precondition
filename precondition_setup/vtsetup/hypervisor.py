@@ -4,6 +4,7 @@ from dtaf_core.lib.exceptions import OsCommandException, OsCommandTimeoutExcepti
 from src.virtualization.lib.tkinit import *
 from src.virtualization.gnr.precondition_setup.vtsetup.ini_info import *
 from src.virtualization.lib.virtualization_basic import *
+from src.virtualization.gnr.precondition_setup.vtsetup.get_version_info import get_info
 
 # Linux
 SUT_TOOLS_LINUX_ROOT = '/home/BKCPkg'
@@ -170,10 +171,11 @@ class ExtensionSutFunction:
 class Nuc:
     connect = Content()
 
-    def __init__(self, sut):
+    def __init__(self, sut, args):
         self.python = None
         self.connect = Content()
         self.sut = sut
+        self.args = args
         self.init_variables()
         self.init_path()
 
@@ -192,6 +194,14 @@ class Nuc:
 
         for ext_cmd in init_path_cmd:
             self.sut.execute_host_cmd(cmd=f'{ext_cmd}', powershell=True)
+
+    def deploy_version_info(self):
+        if self.args.kit:
+            print(self.args.kit)
+            dl = True
+            if self.args.dl:
+                dl = False
+            get_info(self.args.kit, dl)
 
     def deploy_python_env(self):
         ExtensionSutFunction.download_file_to_nuc(sut=self.sut, link=connect.python_pip_modules,

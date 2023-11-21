@@ -123,6 +123,8 @@ class GetVersion:
         self.update_xml("vmd_driver_esxi", link)
 
     def centos_arti_img(self, imgslink):
+        if self.os != self.Systemos["CENTOS"]:
+            return None
         print("Modify the common centos arti img")
         linuxlink = "https://ubit-artifactory-or.intel.com/artifactory/linuxbkc-or-local/linux-stack-bkc-gnr/"
         if self.os != "linux":
@@ -156,7 +158,7 @@ class GetVersion:
                         imglink = img
                     break
             if imglink:
-                self.update_xml("centos_arti_img", f"{imgslink}{imglink},gnr-bkc-centos-stream-9-coreserver.img.xz",
+                self.update_xml("centos_arti_img", f"{imgslink}{imglink},cent0.img.xz",
                                 parent="vm/centos")
                 break
         else:

@@ -6,15 +6,24 @@ CASE_DESC = [
 ]
 
 
+def get_args():
+    parser = argparse.ArgumentParser(description='Automation Framework for Accelerators')
+    parser.add_argument('-v', action='version', version='Automation Framework:Version: 1.0')
+    parser.add_argument('--kit', type=str, nargs="+")
+    parser.add_argument('--dl', action='store_true', help='Add this parameter without downloading xml file')
+    return parser.parse_args()
+
+
 def pre_auto(sut, my_os):
     # type:(SUT, GenericOS) -> None
+    args = get_args()
 
     Case.prepare('boot to OS')
     boot_to(sut=sut, to_state=sut.default_os)
     Case.wait_and_expect(f'OS for system back to os', 15 * 10 * 60, sut.check_system_in_os)
     Case.sleep(60, min_iterval=60)
 
-    nuc = Nuc(sut=sut)
+    nuc = Nuc(sut=sut, args=args)
     nuc.main()
 
     if 'linux' in sut.default_os.lower():
