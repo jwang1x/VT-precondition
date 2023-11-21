@@ -1,7 +1,4 @@
-import os
-import re
 import fabric
-import fileinput
 from dtaf_core.lib.os_lib import OsCommandResult
 from dtaf_core.lib.exceptions import OsCommandException, OsCommandTimeoutException
 from src.virtualization.lib.tkinit import *
@@ -21,14 +18,16 @@ LINUX_DTAF_TOOLPATH = "C:\\Automation\\Tools\\GNR\\LINUX"
 # NUC and Windows
 NUC_TOOLS_WINDOWS_ROOT = SUT_TOOLS_WINDOWS_ROOT = 'C:\\BKCPkg'
 
-NUC_TOOLS_WINDOWS_VIRTUALIZATION = SUT_TOOLS_WINDOWS_VIRTUALIZATION = f'{SUT_TOOLS_WINDOWS_ROOT}\\domains\\virtualization\\'
+NUC_TOOLS_WINDOWS_VIRTUALIZATION = SUT_TOOLS_WINDOWS_VIRTUALIZATION = f'{SUT_TOOLS_WINDOWS_ROOT}\\' \
+                                                                      f'domains\\virtualization\\'
 VT_IMGS_N = VT_IMGS_W = f'{SUT_TOOLS_WINDOWS_VIRTUALIZATION}\\imgs\\'
 VT_TOOLS_N = VT_TOOLS_W = f'{SUT_TOOLS_WINDOWS_VIRTUALIZATION}\\tools\\'
 SUT_ISO_IMAGE_LOCATION = "C:\\Automation\\"
 
 # Esxi
 SUT_TOOLS_VMWARE_VIRTUALIZATION = "/vmfs/volumes/datastore1"
-SUT_TOOLS_VMWARE_VIRTUALIZATION_APISCRIPTS = f'{SUT_TOOLS_VMWARE_VIRTUALIZATION}/BKCPkg/domains/virtualization/apiscripts/'
+SUT_TOOLS_VMWARE_VIRTUALIZATION_APISCRIPTS = f'{SUT_TOOLS_VMWARE_VIRTUALIZATION}' \
+                                             f'/BKCPkg/domains/virtualization/apiscripts/'
 SUT_TOOLS_VMWARE_VIRTUALIZATION_TOOLS = f'{SUT_TOOLS_VMWARE_VIRTUALIZATION}/BKCPkg/domains/virtualization/tools/'
 VMWARE_DTAF_TOOLPATH = "C:\\Automation\\Tools\\GNR\\Esxi"
 VMWARE_SPR_DTAF_TOOLPATH = "C:\\Automation\\Tools\\SPR\\Esxi"
@@ -150,8 +149,8 @@ class ExtensionSutFunction:
                 sut.execute_shell_cmd(cmd=f'rm -rf {destination}/{rename}', timeout=timeout)
                 if authentication:
                     logger.info(f'<xxxxxxxxxxxxxx> execute_shell_cmd : unset http_proxy; unset https_proxy;'
-                                f'curl -u {USERNAME}:**** {download_link} --output {destination}/{rename} --ssl-no-revoke '
-                                f'timeout[{timeout}] cwd[None]')
+                                f'curl -u {USERNAME}:**** {download_link} --output {destination}/{rename} '
+                                f'--ssl-no-revoke timeout[{timeout}] cwd[None]')
                     cls.ignore_log_excute_command(sut=sut,
                                                   cmd=f'unset http_proxy; unset https_proxy;'
                                                       f'curl -u {USERNAME}:{USERPASSWD} {download_link} '
@@ -198,8 +197,8 @@ class Nuc:
         ExtensionSutFunction.download_file_to_nuc(sut=self.sut, link=connect.python_pip_modules,
                                                   destination=Windows_TOOLS, timeout=600)
         self.sut.execute_host_cmd(
-            cmd=f'Expand-Archive -Path {Windows_TOOLS}\\pip_modules.zip -DestinationPath {Windows_TOOLS}\\pip_modules -Force',
-            powershell=True, timeout=600)
+            cmd=f'Expand-Archive -Path {Windows_TOOLS}\\pip_modules.zip -DestinationPath {Windows_TOOLS}\\pip_modules '
+                f'-Force', powershell=True, timeout=600)
 
         __, out, err = self.sut.execute_host_cmd(cmd=f"{self.python} -m pip list | grep pyvmomi", powershell=True,
                                                  timeout=600)
@@ -274,7 +273,7 @@ class Nuc:
                     powershell=True, timeout=120)
                 Case.expect("verify result", 'scope' in result.lower())
 
-    def deploy_sut_env(self):
+    def deploy_nuc_env(self):
         ExtensionSutFunction.download_file_to_nuc(sut=self.sut, link=connect.environment_variable_bat,
                                                   destination=Windows_TOOLS, timeout=300)
         self.sut.execute_host_cmd(cmd=f'{Windows_TOOLS}\\env_setup.bat', powershell=False, timeout=600)
@@ -282,7 +281,7 @@ class Nuc:
     def main(self):
         self.deploy_python_env()
         self.deploy_vmware_powercli()
-        self.deploy_sut_env()
+        self.deploy_nuc_env()
 
 
 class Kvm:
@@ -346,7 +345,8 @@ class Kvm:
         self.sut.execute_shell_cmd(cmd_list, timeout=300)
 
         Case.step("Deploy env pip packages")
-        ext_cmd = f"pip config set global.index-url https://{USERNAME}:{USERPASSWD}@intelpypi.intel.com/pythonsv/production"
+        ext_cmd = f"pip config set global.index-url https://{USERNAME}:{USERPASSWD}" \
+                  f"@intelpypi.intel.com/pythonsv/production"
         ExtensionSutFunction.ignore_log_excute_command(sut=self.sut, cmd=ext_cmd)
         for var in ['xmltodict', 'wcwidth', 'pathlib2', 'artifactory', 'anybadge', 'pyqt5', 'prettytable',
                     'setuptools_rust', 'bcrypt', 'cffi', 'cryptography==3.2.1', 'prettytable', 'pynacl', 'paramiko',
@@ -363,121 +363,62 @@ class Kvm:
                                                   destination=VT_IMGS_L, timeout=600)
 
     def create_nat_and_bridge(self):
-        pass
+        Maintoolkit_linux.libvirtd_init_and_enable(sut=self.sut)
+        network_xml = lambda name, bridge_name, ip_addr, range_start, range_end: \
+            f"<network>\n" \
+            f"  <name>{name}</name>\n" \
+            f"  <bridge name='{bridge_name}'/>\n" \
+            f"  <forward/>\n" \
+            f"  <ip address='{ip_addr}' netmask='255.255.255.0'>\n" \
+            f"      <dhcp>\n" \
+            f"          <range start='{range_start}' end='{range_end}'/>\n" \
+            f"      </dhcp>\n" \
+            f"  </ip>\n" \
+            f"</network>"
 
-    # def deploy_nat_bridge(self):
-    #     Case.step("SUT env check libvirtd status")
-    #     ext_cmd_list = [
-    #         'mv /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so-bak',
-    #         'systemctl start libvirtd',
-    #         'systemctl enable libvirtd',
-    #         'systemctl restart libvirtd',
-    #         ' systemctl status libvirtd | grep "active (running)"',
-    #         'echo "systemctl start libvirtd" >> /etc/profile',
-    #         # fix the virtnetworkd issue on GNR SP 4S
-    #         'systemctl enable virtnetworkd',
-    #         'systemctl restart virtnetworkd']
-    #     for ext_cmd in ext_cmd_list:
-    #         self.sut.execute_shell_cmd(cmd=ext_cmd, timeout=60)
-    #
-    #
-    #     Case.step("SUT env create master net configuration")
-    #     MY_NETWORK_XML_FILE_NAME = "my_network.xml"
-    #     DEFAULT_NETWORK_XML_FILE_NAME = "default_network.xml"
-    #
-    #     my_network = """\"<network>
-    #                   <name>my_network</name>
-    #                   <bridge name='virbr0'/>
-    #                   <forward/>
-    #                   <ip address='192.168.123.1' netmask='255.255.255.0'>
-    #                     <dhcp>
-    #                       <range start='192.168.123.2' end='192.168.123.254'/>
-    #                     </dhcp>
-    #                   </ip>
-    #                 </network>
-    #                 \""""
-    #     default_network = """\"<network>
-    #                   <name>default</name>
-    #                   <bridge name='virbr1'/>
-    #                   <forward/>
-    #                   <ip address='192.168.122.1' netmask='255.255.255.0'>
-    #                     <dhcp>
-    #                       <range start='192.168.122.2' end='192.168.122.254'/>
-    #                     </dhcp>
-    #                   </ip>
-    #                 </network>
-    #                 \""""
-    #
-    #     __, out, err = self.sut.execute_shell_cmd(cmd=r"ip addr show", timeout=60)
-    #     if "virbr0" not in out:
-    #         self.sut.execute_shell_cmd(cmd="echo {} > {}".format(my_network, MY_NETWORK_XML_FILE_NAME),timeout=60)
-    #     result, _ = self.sut.execute_shell_cmd(cmd='virsh net-list --all', timeout=60)
-    #     if 'default' in result.lower():
-    #         cmd = "virsh net-destroy default"
-    #         self.sut.Excute_command(cmd=cmd, timeout=60)
-    #         cmd = "virsh net-undefine default"
-    #         self.sut.Excute_command(cmd=cmd, timeout=60)
-    #     if 'my_network' not in result.lower():
-    #         cmd = 'virsh net-define {}'.format(MY_NETWORK_XML_FILE_NAME)
-    #         self.sut.Excute_command(cmd=cmd, timeout=60)
-    #         cmd = 'virsh net-autostart my_network'
-    #         self.sut.Excute_command(cmd=cmd, timeout=60)
-    #         cmd = 'virsh net-start my_network'
-    #         self.sut.Excute_command(cmd=cmd, timeout=60)
-    #     if "virbr1" not in out:
-    #         cmd = "echo {} > {}".format(default_network, DEFAULT_NETWORK_XML_FILE_NAME)
-    #         self.sut.Excute_command(cmd)
-    #     cmd = 'virsh net-list --all'
-    #     result, _ = self.sut.Excute_command(cmd=cmd, timeout=60)
-    #     if 'default' not in result.lower():
-    #         cmd = 'virsh net-define {}'.format(DEFAULT_NETWORK_XML_FILE_NAME)
-    #         self.sut.Excute_command(cmd=cmd, timeout=60)
-    #         cmd = 'virsh net-autostart default'
-    #         self.sut.Excute_command(cmd=cmd, timeout=60)
-    #         cmd = 'virsh net-start default'
-    #         self.sut.Excute_command(cmd=cmd, timeout=60)
-    #         cmd = "ls /etc/sysconfig/network-scripts/"
-    #         ifcfg_files, err = self.sut.Excute_command(cmd=cmd, timeout=60)
-    #         GET_NETWORK_INTERFACE_NAME_DYNAMIC_CMD = r"ip addr show | awk '/inet.*brd.*dynamic/{print $NF; exit}'"
-    #         ifcfg_file, err = self.sut.Excute_command(cmd=GET_NETWORK_INTERFACE_NAME_DYNAMIC_CMD, timeout=60)
-    #         if "ifcfg-{}".format(ifcfg_file.strip()) not in ifcfg_files:
-    #             ifcfg_template = [
-    #                 "TYPE=Ethernet",
-    #                 "PROXY_METHOD=none",
-    #                 "BROWSER_ONLY=no",
-    #                 "BOOTPROTO=dhcp",
-    #                 "DEFROUTE=yes",
-    #                 "IPV4_FAILURE_FATAL=no",
-    #                 "IPV6INIT=yes",
-    #                 "IPV6_AUTOCONF=yes",
-    #                 "IPV6_DEFROUTE=yes",
-    #                 "IPV6_FAILURE_FATAL=no",
-    #                 f"NAME={ifcfg_file.strip()}",
-    #                 f"DEVICE={ifcfg_file.strip()}",
-    #                 "ONBOOT=yes"
-    #             ]
-    #             for cmd in ifcfg_template:
-    #                 cmd = "echo {} >> /etc/sysconfig/network-scripts/ifcfg-{}".format(cmd, ifcfg_file.strip())
-    #                 self.sut.Excute_command(cmd=cmd, timeout=60)
+        __, result, err = self.sut.execute_shell_cmd(cmd='virsh net-list --all', timeout=60)
+        if 'default' in result.lower():
+            self.sut.execute_shell_cmd(cmd="virsh net-destroy default", timeout=60)
+            self.sut.execute_shell_cmd(cmd="virsh net-undefine default", timeout=60)
 
-    #
-    #     def nuc_env(self):
-    #         """
-    #         environment settings required linux
-    #         """
-    #         tools_dest = 'C:\\Automation\\Tools\\{}\\Linux\\'.format(self.connect.nuc_env_list['platform'])
-    #
-    #         tools = self.connect.nuc_env_list['dtaf_tools']
-    #         self.sut.Arti_file_to_windows(link=tools, dest=tools_dest, nuc=True, timeout=1800)
-    #         file_name = tools.split(',')[1]
-    #         with open(f'{tools_dest}{file_name}', 'r') as f:
-    #             links = f.read()
-    #             for link in links.split():
-    #                 pattern = re.compile(r'[^.\/]+\.[^.\/]+$')
-    #                 file_name = pattern.findall(link)[0]
-    #                 cmd = f'curl {link} --output {tools_dest}{file_name} --ssl-no-revoke'
-    #                 self.sut.Excute_command(cmd=cmd, powershell=False, nuc=True, timeout=1000)
-    #
+        if 'my_network' in result.lower():
+            self.sut.execute_shell_cmd(cmd="virsh net-destroy my_network", timeout=60)
+            self.sut.execute_shell_cmd(cmd="virsh net-undefine my_network", timeout=60)
+
+        my_network = network_xml(name='my_network', bridge_name='virbr0', ip_addr='192.168.123.1',
+                                 range_start='192.168.123.2', range_end='192.168.123.254')
+        self.sut.execute_shell_cmd(cmd=f"echo \"{my_network}\"  > {VT_TOOLS_L}/my_network.xml", timeout=60)
+
+        self.sut.execute_shell_cmd(cmd=f'virsh net-define {VT_TOOLS_L}/my_network.xml', timeout=60)
+        self.sut.execute_shell_cmd(cmd='virsh net-autostart my_network', timeout=60)
+        self.sut.execute_shell_cmd(cmd='virsh net-start my_network', timeout=60)
+
+        default = network_xml(name='default', bridge_name='virbr1', ip_addr='192.168.122.1',
+                              range_start='192.168.122.2', range_end='192.168.122.254')
+        self.sut.execute_shell_cmd(cmd=f"echo \"{default}\"  > {VT_TOOLS_L}/default.xml", timeout=60)
+
+        self.sut.execute_shell_cmd(cmd=f'virsh net-define {VT_TOOLS_L}/default.xml', timeout=60)
+        self.sut.execute_shell_cmd(cmd='virsh net-autostart default', timeout=60)
+        self.sut.execute_shell_cmd(cmd='virsh net-start default', timeout=60)
+
+        __, out, err = self.sut.execute_shell_cmd(
+            cmd=r"ip addr show | awk '/inet.*brd.*dynamic/{print $NF; exit}'", timeout=60)
+
+        ifcfg_file = out.split('\n')[0]
+        cfg = f'"TYPE=Ethernet",\n' \
+              f'"PROXY_METHOD=none",\n' \
+              f'"BROWSER_ONLY=no",\n' \
+              f'"BOOTPROTO=dhcp",\n' \
+              f'"DEFROUTE=yes",\n' \
+              f'"IPV4_FAILURE_FATAL=no",\n' \
+              f'"IPV6INIT=yes",\n' \
+              f'"IPV6_AUTOCONF=yes",\n' \
+              f'"IPV6_DEFROUTE=yes",\n' \
+              f'"IPV6_FAILURE_FATAL=no",\n' \
+              f'f"NAME={ifcfg_file}",\n' \
+              f'f"DEVICE={ifcfg_file}",\n' \
+              f'"ONBOOT=yes"'
+        self.sut.execute_shell_cmd(cmd=f'echo "{cfg}" > /etc/sysconfig/network-scripts/ifcfg-{ifcfg_file}', timeout=60)
 
     def deploy_stress_tools(self):
         if 'kvm_unit_tests_cent' in connect.stress_tools_dict.keys():
@@ -559,10 +500,10 @@ class Kvm:
 
         kvm = get_vmmanger(sut=self.sut)
         for vm_name, image_path in connect.vm_register_cent.items():
-            if (kvm.is_vm_exist(vm_name=vm_name) and connect.vm_refresh_vm.lower() == 'true') or not kvm.is_vm_exist(
-                    vm_name=vm_name):
+            if kvm.is_vm_exist(vm_name=vm_name) and connect.vm_refresh_vm.lower() == 'true':
                 kvm.undefine_vm(vm_name=vm_name)
 
+            if not kvm.is_vm_exist(vm_name=vm_name):
                 os_variant = None
                 if 'win' in vm_name:
                     os_variant = 'win2k19'
@@ -576,7 +517,8 @@ class Kvm:
                 self.sut.execute_shell_cmd(cmd=f"cp -f {image_path} {VT_IMGS_L}/{vm_name}_virt.qcow2", timeout=600)
                 __, out, err = self.sut.execute_shell_cmd(cmd=f"virt-install --import --name={vm_name} "
                                                               f"--vcpu=2 --memory=4096 --cpu=host-passthrough  "
-                                                              f"--disk path={VT_IMGS_L}/{vm_name}_virt.qcow2 --network network=default --os-type=linux "
+                                                              f"--disk path={VT_IMGS_L}/{vm_name}_virt.qcow2 "
+                                                              f"--network network=default --os-type=linux "
                                                               f"--os-variant={os_variant} --noautoconsole ",
                                                           timeout=600)
 
@@ -585,6 +527,7 @@ class Kvm:
 
     def main(self):
         self.deploy_auto_env()
+        self.create_nat_and_bridge()
         self.deploy_stress_tools()
         self.deploy_vms()
 
@@ -785,7 +728,8 @@ class Hyper_V:
                 self.sut.execute_shell_cmd(cmd=f'New-Item -Path {Windows_IMG}\\{dir_name} -ItemType Directory  -Force',
                                            powershell=True, timeout=30)
                 self.sut.execute_shell_cmd(
-                    cmd=f'Expand-Archive -Path {Windows_IMG}\\{rename} -DestinationPath {Windows_IMG}\\{dir_name} -Force',
+                    cmd=f'Expand-Archive -Path {Windows_IMG}\\{rename} '
+                        f'-DestinationPath {Windows_IMG}\\{dir_name} -Force',
                     powershell=True, timeout=600)
 
         mac_address = Etree.get_mac_list(os='windows')
@@ -890,7 +834,8 @@ class Esxi:
                 cmd=f'New-Item -Path {DTAF_IMAGEPATH}\\{folder_name} -ItemType Directory  -Force',
                 powershell=True, timeout=30)
             self.sut.execute_host_cmd(
-                cmd=f'Expand-Archive -Path {VT_TOOLS_N}\\iometer_win.zip -DestinationPath {VT_TOOLS_N}\\{folder_name} -Force',
+                cmd=f'Expand-Archive -Path {VT_TOOLS_N}\\iometer_win.zip '
+                    f'-DestinationPath {VT_TOOLS_N}\\{folder_name} -Force',
                 powershell=True, timeout=600)
 
         Case.step("Deploy ethr tools")
