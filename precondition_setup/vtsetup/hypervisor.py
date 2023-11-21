@@ -584,8 +584,8 @@ class Kvm:
                             "Domain creation completed.".lower() in out.lower())
 
     def main(self):
-        # self.deploy_auto_env()
-        # self.deploy_stress_tools()
+        self.deploy_auto_env()
+        self.deploy_stress_tools()
         self.deploy_vms()
 
 
