@@ -16,14 +16,13 @@ def get_args():
 
 def pre_auto(sut, my_os):
     # type:(SUT, GenericOS) -> None
-    args = get_args()
 
     Case.prepare('boot to OS')
     boot_to(sut=sut, to_state=sut.default_os)
     Case.wait_and_expect(f'OS for system back to os', 15 * 10 * 60, sut.check_system_in_os)
     Case.sleep(60, min_iterval=60)
 
-    nuc = Nuc(sut=sut, args=args)
+    nuc = Nuc(sut=sut, args=get_args())
     nuc.main()
 
     if 'linux' in sut.default_os.lower():

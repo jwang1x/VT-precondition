@@ -77,7 +77,7 @@ class ExtensionSutFunction:
                 raise Exception(f"Failed command")
 
     @classmethod
-    def download_file_to_nuc(cls, sut, link, destination, timeout=600):
+    def download_file_to_nuc(cls, sut, link, destination, authentication=False, timeout=600):
         download_link = link.split(',')[0]
         rename = link.split(',')[1]
         if connect.overwrite.lower() == 'true':
@@ -92,12 +92,20 @@ class ExtensionSutFunction:
                                                    timeout=timeout)
                 if "true" in result.lower():
                     return
-        ext_cmd = f'curl -u {USERNAME}:{USERPASSWD} {download_link} --output {destination}\\{rename} --ssl-no-revoke'
-        logger.info(f'<xxxxxxxxxxxxxx> execute_host_cmd :curl -u {USERNAME}:**** {download_link} '
-                    f'--output {destination}\\{rename} --ssl-no-revoke  timeout[{timeout}] cwd[None]')
+        if authentication:
+            ext_cmd = f'curl -u {USERNAME}:{USERPASSWD} {download_link} --output {destination}\\{rename} --ssl-no-revoke'
+            logger.info(f'<xxxxxxxxxxxxxx> execute_host_cmd :curl -u {USERNAME}:**** {download_link} '
+                        f'--output {destination}\\{rename} --ssl-no-revoke  timeout[{timeout}] cwd[None]')
 
-        ExtensionSutFunction.ignore_log_excute_command(sut=sut, cmd=ext_cmd, powershell=False, timeout=timeout,
-                                                       nuc=True)
+            ExtensionSutFunction.ignore_log_excute_command(sut=sut, cmd=ext_cmd, powershell=False, timeout=timeout,
+                                                           nuc=True)
+        else:
+            ext_cmd = f'curl {download_link} --output {destination}\\{rename} --ssl-no-revoke'
+            logger.info(f'<xxxxxxxxxxxxxx> execute_host_cmd :curl {download_link} '
+                        f'--output {destination}\\{rename} --ssl-no-revoke  timeout[{timeout}] cwd[None]')
+
+            ExtensionSutFunction.ignore_log_excute_command(sut=sut, cmd=ext_cmd, powershell=False, timeout=timeout,
+                                                           nuc=True)
 
     @classmethod
     def download_file_to_sut(cls, sut, link, destination, authentication=False, timeout=600):
@@ -459,7 +467,7 @@ class Kvm:
         if 'sgx_cent' in connect.stress_tools_dict.keys():
             Case.step("Deploy sgx driver")
             ExtensionSutFunction.download_file_to_sut(sut=self.sut, link=connect.stress_tools_dict['sgx_cent'],
-                                                      destination=VT_TOOLS_L, timeout=600)
+                                                      destination=VT_TOOLS_L, authentication=True, timeout=600)
 
         if 'sgx_functionvalidation_cent' in connect.stress_tools_dict.keys():
             Case.step("Deploy sgx functionvalidation test tool")
@@ -470,12 +478,12 @@ class Kvm:
         if 'dlb_cent' in connect.stress_tools_dict.keys():
             Case.step("Deploy dlb driver")
             ExtensionSutFunction.download_file_to_sut(sut=self.sut, link=connect.stress_tools_dict['dlb_cent'],
-                                                      destination=VT_TOOLS_L, timeout=600)
+                                                      destination=VT_TOOLS_L, authentication=True, timeout=600)
 
         if 'qat_cent' in connect.stress_tools_dict.keys():
             Case.step("Deploy qat driver")
             ExtensionSutFunction.download_file_to_sut(sut=self.sut, link=connect.stress_tools_dict['qat_cent'],
-                                                      destination=VT_TOOLS_L, timeout=600)
+                                                      destination=VT_TOOLS_L, authentication=True, timeout=600)
 
         if 'dsa_iaa_cent' in connect.stress_tools_dict.keys():
             Case.step("Deploy dsa/iaa driver")
@@ -495,16 +503,22 @@ class Kvm:
             if '.iso' in vm_value:
                 continue
             rename1 = vm_value.split(',')[1]
-            self.sut.execute_shell_cmd(cmd=f'cd {VT_IMGS_L};xz -d {rename1} -T 10 -e -f ', timeout=1200)
+            self.sut.execute_shell_cmd(cmd=f'cd {VT_IMGS_L};xz -d {rename1} -T 0 -e -f ', timeout=1200)
 
             rename2 = rename1.replace('.xz', '')
+
+            if 'cent' in rename2.lower() or 'rhel' in rename2.lower():
+                self.sut.execute_shell_cmd(cmd=f'cd {VT_IMGS_L};'
+                                               f'export LIBGUESTFS_BACKEND=direct;'
+                                               f'virt-customize -a {rename2} --root-password password:password')
+
             if '.img' in rename2:
                 rename3 = rename2.replace('.img', '')
                 self.sut.execute_shell_cmd(cmd=f'cd {VT_IMGS_L};qemu-img convert -O qcow2 {rename2} {rename3}.qcow2',
                                            timeout=600)
 
             if '.qcow2' in rename2:
-                rename3 = rename1.replace('.qcow2', '')
+                rename3 = rename2.replace('.qcow2', '')
                 self.sut.execute_shell_cmd(cmd=f'cd {VT_IMGS_L};qemu-img convert -O raw {rename2} {rename3}.img',
                                            timeout=600)
 
@@ -535,11 +549,49 @@ class Kvm:
                 Case.expect(f"check register vm {vm_name} complete",
                             "Domain creation completed.".lower() in out.lower())
 
+    def deploy_vm_env(self):
+        Case.step("Deploy vm env ")
+        try:
+            vm_port = 2222
+            self.sut.execute_shell_cmd(
+                f"cd {Linux_IMG};nohup /usr/libexec/qemu-kvm -machine q35 -accel kvm "
+                f"-m 10240 -smp 10 -cpu host -monitor pty -hda ./cent0.img "
+                f"-nic user,hostfwd=tcp::{vm_port}-:22 -nographic > ./GuestVM2222.txt 2>&1 & ",
+                timeout=10 * 60)
+
+            Case.sleep(120, min_iterval=120)
+
+            Maintoolkit_linux.check_vms_alive_and_set_kernel(sut=self.sut, port_or_portlist=vm_port,
+                                                             guest_kernel_args=False,
+                                                             boot_log=False, vmtype='linux')
+
+            self.sut.execute_shell_cmd(excute_vm_cmd(vm_port, 'mkdir -p /etc/yum.repos.d/repobak'))
+            self.sut.execute_shell_cmd(excute_vm_cmd(vm_port, 'cd /etc/yum.repos.d/; mv -f * repobak'))
+
+            __, out, err = self.sut.execute_shell_cmd('ls /etc/yum.repos.d/')
+            repo_files = out.split("\n")[:-1]
+            for repo in repo_files:
+                self.sut.execute_shell_cmd(excute_vm_copy(vm_port, f'/etc/yum.repos.d/{repo}', '/etc/yum.repos.d/'))
+
+            self.sut.execute_shell_cmd(excute_vm_cmd(vm_port, 'yum groupinstall -y \\"Development Tools\\"'), timeout=600)
+
+            yum_package_list = ['kernel-gnr-bkc-modules-internal', 'meson', 'python3-pyelftools', 'autoconf', 'automake',
+                                'libtool', 'pkgconf', 'rpm-build', 'rpmdevtools', 'fio', 'iperf3',
+                                'asciidoc xmlto libuuid-devel json-c-devel kmod-devel libudev-devel',
+                                'zlib-devel.x86_64 yasm systemd-devel boost-devel.x86_64 openssl-devel ',
+                                'libnl3-devel gcc make gcc-c++ libgudev.x86_64 libgudev-devel.x86_64 systemd*']
+            for package in yum_package_list:
+                self.sut.execute_shell_cmd(excute_vm_cmd(vm_port, f'yum -y install {package}'), timeout=600)
+        finally:
+            self.sut.execute_shell_cmd(
+                """ kill -9 `ps -ef | egrep qemu | egrep -v grep | awk -F  ' ' '{print $2}' | xargs` """, timeout=120)
+
     def main(self):
         self.deploy_auto_env()
         self.create_nat_and_bridge()
         self.deploy_stress_tools()
         self.deploy_vms()
+        self.deploy_vm_env()
 
 
 class Hyper_V:
@@ -699,7 +751,8 @@ class Hyper_V:
         Case.step("Deploy sgx tools")
         if 'sgx_wind' in connect.stress_tools_dict.keys():
             ExtensionSutFunction.download_file_to_sut(sut=self.sut, link=connect.stress_tools_dict['sgx_wind'],
-                                                      destination=SUT_TOOLS_WINDOWS_VIRTUALIZATION, timeout=300)
+                                                      destination=SUT_TOOLS_WINDOWS_VIRTUALIZATION, authentication=True,
+                                                      timeout=300)
 
         if 'sgx_enablesgx_vm_wind' in connect.stress_tools_dict.keys():
             ExtensionSutFunction.download_file_to_sut(sut=self.sut,
@@ -885,7 +938,7 @@ class Esxi:
                                                       authentication=True, destination=ESXI_TOOLS, timeout=600)
         if 'dlb_cent' in connect.stress_tools_dict.keys():
             ExtensionSutFunction.download_file_to_nuc(sut=self.sut, link=connect.stress_tools_dict['dlb_cent'],
-                                                      destination=NUC_TOOLS, timeout=600)
+                                                      authentication=True, destination=NUC_TOOLS, timeout=600)
 
         Case.step("Deploy qat tools")
         if 'qat_esxi' in connect.stress_tools_dict.keys():
@@ -893,12 +946,12 @@ class Esxi:
                                                       authentication=True, destination=ESXI_TOOLS, timeout=600)
         if 'qat_cent' in connect.stress_tools_dict.keys():
             ExtensionSutFunction.download_file_to_nuc(sut=self.sut, link=connect.stress_tools_dict['qat_cent'],
-                                                      destination=NUC_TOOLS, timeout=600)
+                                                      authentication=True, destination=NUC_TOOLS, timeout=600)
 
         Case.step("Deploy vsphere tools")
         if 'vsphere' in connect.stress_tools_dict.keys():
             ExtensionSutFunction.download_file_to_nuc(sut=self.sut, link=connect.stress_tools_dict['vsphere'],
-                                                      destination=NUC_TOOLS, timeout=600)
+                                                      destination=NUC_TOOLS, timeout=1800)
 
         if 'vsphere_ks_json' in connect.stress_tools_dict.keys():
             ExtensionSutFunction.download_file_to_nuc(sut=self.sut,
