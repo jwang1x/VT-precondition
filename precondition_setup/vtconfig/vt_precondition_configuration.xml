@@ -49,7 +49,7 @@
 		<vtdchain_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/vtdchain_tool.zip,vtdchain_tool.zip</vtdchain_cent>
 		
 		<!--note>sgx tools</note-->
-		<sgx_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/SGX.zip,SGX.zip</sgx_wind>
+		<sgx_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/SGX.zip,sgx.zip</sgx_wind>
 		<sgx_enablesgx_vm_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/EnableSGX-on-VM.zip,EnableSGX-on-VM.zip</sgx_enablesgx_vm_wind>
 				
 		<sgx_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/sgx-2.20.100.4-rhel9.zip,sgx.zip</sgx_cent>

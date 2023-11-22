@@ -10,8 +10,9 @@ class GetVersion:
     BaseUrl = "https://ubit-artifactory-ba.intel.com/artifactory/dcg-dea-srvplat-repos/Kits"
     Systemos = {"RHEL": "linux", "CENTOS": "linux", "WIN": "windows", "ESXI": "esxi"}
     esxi = {"dlb": "dlb_esxi/"}
-    linux = {"dlb": "dlb/"}
-    tools = {"esxi": esxi, "linux": linux}
+    linux = {"dlb": "dlb/", "sgx": "SGX_PSW/", "sgx_xml": "sgx_cent","sgx_t": "SGXFVT_Tool"}
+    windows = {"sgx": "SGX/","sgx_xml": "sgx_wind", "sgx_t": "SGXFVT_Tool/"}
+    tools = {"esxi": esxi, "linux": linux, "windows": windows}
 
     def __init__(self, version, dl=True):
         if dl:
@@ -51,13 +52,15 @@ class GetVersion:
             raise Exception("requests error")
         return res
 
-    def qat(self, packageslink):
+    def qat(self):
+        if self.os  == self.Systemos["WIN"]:
+            return None
         print("Modify the qat link")
-        packagelist = self.get_url(packageslink)
+        packagelist = self.get_url(self.packageslink)
         if "QAT/" not in packagelist:
             print(f"There is no qat package in {packagelist}")
             return None
-        qatlistlink = f"{packageslink}/QAT"
+        qatlistlink = f"{self.packageslink}/QAT"
         qatlist = self.get_url(qatlistlink)
         qatversion = qatlist[0]
         qatziplink = f"{qatlistlink}/{qatversion}"
@@ -71,14 +74,16 @@ class GetVersion:
             print(qatlink)
             self.update_xml("qat_cent", qatlink)
 
-    def dlb(self, packageslink):
+    def dlb(self):
+        if self.os  == self.Systemos["WIN"]:
+            return None
         print("Modify the dlb link")
-        packagelist = self.get_url(packageslink)
+        packagelist = self.get_url(self.packageslink)
         dlb = self.tools[self.os]["dlb"]
         if dlb not in packagelist:
             print(f"There is no dlb package in {packagelist}")
             return None
-        listlink = f"{packageslink}/{dlb}"
+        listlink = f"{self.packageslink}/{dlb}"
         linklist = self.get_url(listlink)
         version = linklist[0]
         ziplink = f"{listlink}{version}"
@@ -92,13 +97,15 @@ class GetVersion:
             print(link)
             self.update_xml("dlb_cent", link)
 
-    def dsa_iax(self, packageslink):
+    def dsa_iax(self):
+        if self.os  == self.Systemos["WIN"]:
+            return None
         print("Modify the dsa_iax link")
-        packagelist = self.get_url(packageslink)
+        packagelist = self.get_url(self.packageslink)
         if "iads_esxi/" not in packagelist:
             print(f"There is no dsa_iax package in {packagelist}")
             return None
-        listlink = f"{packageslink}/iads_esxi/"
+        listlink = f"{self.packageslink}/iads_esxi/"
         linklist = self.get_url(listlink)
         version = linklist[0]
         ziplink = f"{listlink}{version}"
@@ -107,13 +114,15 @@ class GetVersion:
         print(link)
         self.update_xml("dsa_iaa_esxi", link)
 
-    def vmd(self, packageslink):
+    def vmd(self):
+        if self.os  == self.Systemos["WIN"]:
+            return None
         print("Modify the vmd link")
-        packagelist = self.get_url(packageslink)
+        packagelist = self.get_url(self.packageslink)
         if "VMD_ESXi/" not in packagelist:
             print(f"There is no VMD_ESXI package in {packagelist}")
             return None
-        listlink = f"{packageslink}/VMD_ESXi/"
+        listlink = f"{self.packageslink}/VMD_ESXi/"
         linklist = self.get_url(listlink)
         version = linklist[0]
         ziplink = f"{listlink}{version}"
@@ -121,8 +130,24 @@ class GetVersion:
         link = f"{ziplink}{filezip},intel_nvme_vmd.zip"
         print(link)
         self.update_xml("vmd_driver_esxi", link)
+    
+    def sgx(self):
+        if self.os == self.Systemos["ESXI"]:
+            return None
+        print("Modify the sgx link")
+        packagelist = self.get_url(self.packageslink)
+        if not any(["SGX" in i for i in packagelist]):
+            print(f"There is not sgx package in {packagelist}")
+        sgx = self.tools[self.os]["sgx"]
+        sgxlistlink = f"{self.packageslink}/{sgx}"
+        sgxlistlink0 = f"{sgxlistlink}{self.get_url(sgxlistlink)[0]}"
+        sgxziplink = self.get_url(sgxlistlink0)[-1]
+        sgxlink = f"{sgxlistlink0}{sgxziplink},sgx.zip"
+        print(sgxlink)
+        sgx_xml = self.tools[self.os]["sgx_xml"]
+        self.update_xml(sgx_xml, sgxlink)
 
-    def centos_arti_img(self, imgslink):
+    def centos_arti_img(self):
         if self.os != self.Systemos["CENTOS"]:
             return None
         print("Modify the common centos arti img")
@@ -130,7 +155,7 @@ class GetVersion:
         if self.os != "linux":
             print("You do not need to do this.")
 
-        imgslist = self.get_url(imgslink)
+        imgslist = self.get_url(self.imgslink)
         imglink = ""
         for link in imgslist:
             if link.endswith("iso"):
@@ -169,24 +194,22 @@ class GetVersion:
         link_parent, _ = self.version.rsplit("-", 1)
         for i in baselist:
             if i.upper() == f"{link_parent}/".upper():
-                packageslink = f"{self.BaseUrl}/{i}{self.version}/Packages"
-                imgslink = f"{self.BaseUrl}/{i}{self.version}/Images"
+                self.packageslink = f"{self.BaseUrl}/{i}{self.version}/Packages"
+                self.imgslink = f"{self.BaseUrl}/{i}{self.version}/Images"
                 break
         else:
             raise Exception("Error parser")
-        self.qat(packageslink)
-        self.dlb(packageslink)
-        self.dsa_iax(packageslink)
-        self.vmd(packageslink)
-        self.centos_arti_img(imgslink)
+        self.qat()
+        self.dlb()
+        self.dsa_iax()
+        self.vmd()
+        self.centos_arti_img()
+        self.sgx()
 
 
 def get_info(system_version, dl=True):
     for i in system_version:
         getversion = GetVersion(i, dl)
-        if getversion.os == "windows":
-            print("Windows is not supported at this time")
-            continue
         getversion.tools_list()
 
 
@@ -202,4 +225,3 @@ if __name__ == "__main__":
         if args.dl:
             dl = False
         get_info(args.kit, dl)
-
