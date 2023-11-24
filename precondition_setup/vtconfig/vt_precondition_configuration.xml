@@ -16,6 +16,7 @@
 			<windows>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/auto-poc.zip,auto-poc.zip</windows>
 			<linux>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/auto-poc.zip,auto-poc.zip</linux>
 			<virtualization_inband_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/virtualization_inband.zip,virtualization_inband.zip</virtualization_inband_cent>
+			<virtualization_inband_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/virtualization_inband_wind.zip,virtualization_inband.zip</virtualization_inband_wind>
 		</auto-poc>
 		<nuc>
 			<environment_variable_bat>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/Automation_Tools/GNR/Imgs/env_setup.bat,env_setup.bat</environment_variable_bat>
@@ -49,10 +50,10 @@
 		<vtdchain_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/vtdchain_tool.zip,vtdchain_tool.zip</vtdchain_cent>
 		
 		<!--note>sgx tools</note-->
-		<sgx_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/SGX.zip,sgx.zip</sgx_wind>
-		<sgx_enablesgx_vm_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/EnableSGX-on-VM.zip,EnableSGX-on-VM.zip</sgx_enablesgx_vm_wind>
-				
+		<sgx_wind>https://ubit-artifactory-ba.intel.com/artifactory/one-windows-local/Submissions/SGX/2.20.100.1/sgx-2.20.100.1.zip,sgx.zip</sgx_wind>
 		<sgx_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/sgx-2.20.100.4-rhel9.zip,sgx.zip</sgx_cent>
+		<sgx_enablesgx_vm_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/EnableSGX-on-VM.zip,EnableSGX-on-VM.zip</sgx_enablesgx_vm_wind>
+		<ipmitool_wind>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/windows/tools/IPMIToolWin.zip,IPMIToolWin.zip</ipmitool_wind>
 		<sgx_functionvalidation_cent>https://ubit-artifactory-sh.intel.com/artifactory/validationtools-sh-local/virtualization/linux/tools/SGXFunctionalValidation_v0.8.10.0.tar.gz,SGXFunctionalValidation.tar.gz</sgx_functionvalidation_cent>
 		
 		<!--note></note-->

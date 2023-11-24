@@ -137,6 +137,7 @@ class Content():
         self.auto_poc_cent = Etree.get_node_value(attrib='auto/auto-poc/linux')
         self.virtualization_inband_cent = Etree.get_node_value(attrib='auto/auto-poc/virtualization_inband_cent')
         self.auto_poc_wind = Etree.get_node_value(attrib='auto/auto-poc/windows')
+        self.virtualization_inband_wind = Etree.get_node_value(attrib='auto/auto-poc/virtualization_inband_wind')
         # nuc env
         self.environment_variable_bat = Etree.get_node_value(attrib='auto/nuc/environment_variable_bat')
         self.vmware_powercli = Etree.get_node_value(attrib='auto/nuc/vmware_powercli')

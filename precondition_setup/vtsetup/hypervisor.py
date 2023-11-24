@@ -630,10 +630,15 @@ class Hyper_V:
         suppress progress bar in powershell commands
         """
         self.sut.execute_shell_cmd(cmd=f"Set-ExecutionPolicy -ExecutionPolicy Bypass", powershell=True, timeout=600)
-        pscfg, err = self.sut.execute_shell_cmd("$PROFILE.AllUsersAllHosts", powershell=True)
-        file, err = self.sut.execute_shell_cmd(f"Test-Path {pscfg.strip()}", powershell=True)
+        __, pscfg, err = self.sut.execute_shell_cmd("$PROFILE.AllUsersAllHosts", powershell=True)
+        __, file, err = self.sut.execute_shell_cmd(f"Test-Path {pscfg.strip()}", powershell=True)
         if "True" not in file:
             self.sut.execute_shell_cmd('New-Item -Path $pscfg -ItemType "file" -Force', powershell=True)
+        cmd = f'Get-Content {pscfg.strip()}|findstr "SilentlyContinue"'
+        __, is_append, err = self.sut.execute_shell_cmd(cmd, powershell=True)
+        if is_append == "":
+            cmd = "echo $progressPreference = 'silentlyContinue' > {}"
+            self.sut.execute_shell_cmd(cmd.format(pscfg.strip()), powershell=False)
 
         Case.step("Prepare install python38")
         __, result, err = self.sut.execute_shell_cmd(f"Test-Path -Path  {self.python}", powershell=True)
@@ -664,6 +669,18 @@ class Hyper_V:
             cmd=f'Expand-Archive -Path {Windows_Path}\\auto-poc -DestinationPath {Windows_Path} -Force',
             powershell=True, timeout=600)
 
+        Case.step("Deploy virtualization_inband for windows")
+        ExtensionSutFunction.download_file_to_sut(sut=self.sut, link=connect.virtualization_inband_wind,
+                                                  destination=Windows_Path,
+                                                  timeout=600)
+        self.sut.execute_shell_cmd(
+            cmd=f'New-Item -Path {Windows_Path}\\virtualization_inband -ItemType Directory  -Force',
+            powershell=True, timeout=30)
+        self.sut.execute_shell_cmd(
+            cmd=f'Expand-Archive -Path {Windows_Path}\\virtualization_inband.zip -DestinationPath {Windows_Path}\\virtualization_inband -Force',
+            powershell=True, timeout=600)
+
+        Case.step("Deploy xmlcli for windows")
         __, result, err = self.sut.execute_shell_cmd(
             cmd=f"Test-Path -Path C:\\BKCPkg\\xmlcli\\xmlcli_get_verify_knobs.py",
             powershell=True)
@@ -711,7 +728,7 @@ class Hyper_V:
         __, result, err = self.sut.execute_shell_cmd(get_vm_switch, powershell=True)
         Case.expect(f"Check \"ExternalSwitch\" can be created", "ExternalSwitch".lower() in result.lower())
 
-        Case.step("Create external virtual switch ")
+        Case.step("Create internal virtual switch ")
         get_vm_swtich = f"Get-VMSwitch -Name \"InternalSwitch\""
         __, result, err = self.sut.execute_shell_cmd(get_vm_swtich, powershell=True)
         if result == "":
@@ -723,9 +740,10 @@ class Hyper_V:
 
         __, result, err = self.sut.execute_shell_cmd(cmd=f"Get-NetIPAddress", powershell=True, timeout=1 * 60)
         if 'IPAddress         : 10.0.0.3'.lower() not in result.lower():
-            result, err = self.sut.execute_shell_cmd(
-                cmd=f"New-NetIPAddress -IPAddress 10.0.0.3 -InterfaceAlias  'vEthernet (InternalSwitch)' "
-                    f"-DefaultGateway 10.0.0.1 -AddressFamily IPv4 -PrefixLength 24",
+            __, result, err = self.sut.execute_shell_cmd(
+                cmd=f"New-NetIPAddress -IPAddress 10.0.0.3 -InterfaceAlias  "
+                    f"'vEthernet (InternalSwitch)' -DefaultGateway 10.0.0.1 "
+                    f"-AddressFamily IPv4 -PrefixLength 22",
                 powershell=True, timeout=1 * 60)
             Case.expect("Set internal switch ip addr", 'IPAddress         : 10.0.0.3' in result)
         self.sut.execute_shell_cmd(
@@ -737,32 +755,51 @@ class Hyper_V:
         Case.expect(f"Enable dhcp serive result", "True".lower() in result.lower())
 
         __, result, err = self.sut.execute_shell_cmd(cmd=f"Get-DhcpServerv4Scope", powershell=True, timeout=5 * 60)
-        if "dhcp" not in result.lower():
-            self.sut.execute_shell_cmd(
-                cmd=f"Add-DhcpServerv4Scope -name 'dhcp' -StartRange 10.0.0.1 -EndRange 10.0.0.254 "
-                    f"-SubnetMask 255.255.254.0 -State Active",
-                powershell=True, timeout=5 * 60)
+        if "dhcp" in result.lower():
+            self.sut.execute_shell_cmd(cmd=f"Remove-DhcpServerv4Scope -ScopeId 10.0.0.0 -force", powershell=True,
+                                    timeout=5 * 60)
+        self.sut.execute_shell_cmd(
+            cmd=f"Add-DhcpServerv4Scope -name 'dhcp' -StartRange 10.0.0.1 -EndRange 10.0.3.254 "
+                f"-SubnetMask 255.255.252.0 -State Active",
+            powershell=True, timeout=5 * 60)
 
         self.sut.execute_shell_cmd(
             cmd=f"Add-DhcpServerv4ExclusionRange -ScopeID 10.0.0.0 -StartRange 10.0.0.1 -EndRange 10.0.0.15",
+            powershell=True, timeout=5 * 60)
+        self.sut.execute_shell_cmd(
+            cmd=f"Add-DhcpServerv4ExclusionRange -ScopeID 10.0.0.0 -StartRange 10.0.1.0 -EndRange 10.0.1.15",
+            powershell=True, timeout=5 * 60)
+        self.sut.execute_shell_cmd(
+            cmd=f"Add-DhcpServerv4ExclusionRange -ScopeID 10.0.0.0 -StartRange 10.0.2.0 -EndRange 10.0.2.15",
+            powershell=True, timeout=5 * 60)
+        self.sut.execute_shell_cmd(
+            cmd=f"Add-DhcpServerv4ExclusionRange -ScopeID 10.0.0.0 -StartRange 10.0.3.0 -EndRange 10.0.3.15",
             powershell=True, timeout=5 * 60)
 
     def deploy_stress_tools(self):
         Case.step("Deploy sgx tools")
         if 'sgx_wind' in connect.stress_tools_dict.keys():
             ExtensionSutFunction.download_file_to_sut(sut=self.sut, link=connect.stress_tools_dict['sgx_wind'],
-                                                      destination=SUT_TOOLS_WINDOWS_VIRTUALIZATION, authentication=True,
-                                                      timeout=300)
+                                                      destination=VT_TOOLS_W, timeout=300)
 
         if 'sgx_enablesgx_vm_wind' in connect.stress_tools_dict.keys():
             ExtensionSutFunction.download_file_to_sut(sut=self.sut,
                                                       link=connect.stress_tools_dict['sgx_enablesgx_vm_wind'],
-                                                      destination=SUT_TOOLS_WINDOWS_VIRTUALIZATION, timeout=300)
+                                                      destination=VT_TOOLS_W, timeout=300)
+            self.sut.execute_shell_cmd(
+                cmd=f'Expand-Archive -Path {VT_TOOLS_W}\\EnableSGX-on-VM.zip -DestinationPath {VT_TOOLS_W}\\ -Force',
+                powershell=True, timeout=600)
 
         if 'ipmitool_wind' in connect.stress_tools_dict.keys():
             ExtensionSutFunction.download_file_to_sut(sut=self.sut,
                                                       link=connect.stress_tools_dict['ipmitool_wind'],
-                                                      destination=SUT_TOOLS_WINDOWS_VIRTUALIZATION, timeout=300)
+                                                      destination=VT_TOOLS_W, timeout=300)
+            self.sut.execute_shell_cmd(
+                cmd=f'New-Item -Path {VT_TOOLS_W}\\IPMIToolWin -ItemType Directory  -Force',
+                powershell=True, timeout=30)
+            self.sut.execute_shell_cmd(
+                cmd=f'Expand-Archive -Path {VT_TOOLS_W}\\IPMIToolWin.zip -DestinationPath {VT_TOOLS_W}\\IPMIToolWin -Force',
+                powershell=True, timeout=600)
 
         if 'ethr_wind' in connect.stress_tools_dict.keys():
             ExtensionSutFunction.download_file_to_sut(sut=self.sut,
